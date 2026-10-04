@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Private Label & Contract Manufacturing | SARVAMTA Food & Spices Pvt. Ltd.</title>
+  <meta name="description" content="Grow your spice brand with SARVAMTA Food and Spices Pvt. Ltd. Leading private-label spice manufacturer, custom blending, packaging, and third-party contract manufacturing in Ahmedabad, India.">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- MAIN STYLESHEET -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="light-theme private-label-page">
+
+  <!-- FIXED HEADER WITH TOP-LEFT LOGO & TOP MENU -->
+  <header class="light-header">
+    <div class="header-inner">
+      <!-- TOP-LEFT TRANSPARENT LOGO -->
+      <a href="index.html" class="top-left-logo-box" id="top-left-logo">
+        <img src="images/logo.png" alt="Sarvamta Spices Logo" class="header-logo-img">
+      </a>
+
+      <!-- TOP NAVIGATION MENU -->
+      <nav class="top-nav-menu" id="top-nav-menu">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="about.html" class="nav-item">About Us</a>
+        <a href="our-brand.html" class="nav-item">Our Brand</a>
+        <a href="private-label.html" class="nav-item active">Private Label</a>
+        <a href="products.html" class="nav-item">Product</a>
+        <a href="contact.html" class="nav-item">Contact Us</a>
+        <a href="contact.html#contact-form" class="btn-quote-nav">Quote Now</a>
+      </nav>
+
+      <!-- MOBILE MENU HAMBURGER BUTTON -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SECTION 1: PRIVATE LABEL HERO SHOWCASE (MATCHING REFERENCE IMAGE) -->
+  <section class="private-label-hero">
+    <div class="pl-hero-container">
+      
+      <!-- Left Column: Content & Call to Action -->
+      <div class="pl-hero-left">
+        <h1 class="pl-hero-title">Grow Your Brand<br>With Us</h1>
+        <p class="pl-hero-desc">
+          We are a leading private-label company specializing in the production and distribution of high-quality spice products. With our expertise and commitment to excellence, we offer comprehensive private-label solutions that cater to the unique needs of our clients. At SARVAMTA Food and Spices Pvt. Ltd., we empower brands, supermarkets, and distributors with pristine sourcing, custom formulations, and turnkey packaging under your own brand identity.
+        </p>
+        <button onclick="openInquiryModal('Private Label / White Labeling')" class="btn-ref-red">
+          Click here to know more about white lable <i class="fa-solid fa-arrow-right-long"></i>
+        </button>
+      </div>
+
+      <!-- Right Column: 3-Pouch Showcase Collage (Matching Reference Mockup) -->
+      <div class="pl-hero-right">
+        <div class="pl-collage-wrap">
+          
+          <!-- Elegant Backdrop Studio Cards -->
+          <div class="pl-backdrop-card card-top"></div>
+          <div class="pl-backdrop-card card-left"></div>
+          <div class="pl-backdrop-card card-right"></div>
+
+          <!-- Pouch 1: Center / Raised (Red Chilli Powder) -->
+          <div class="pl-pouch-item pouch-center">
+            <img src="images/your-brand-redchilli-powder.png" alt="Your Brand Red Chilli Powder Pouch Mockup">
+          </div>
+
+          <!-- Pouch 2: Front Left (Coriander Powder) -->
+          <div class="pl-pouch-item pouch-left">
+            <img src="images/your-brand-coriander-powder.png" alt="Your Brand Coriander Powder Pouch Mockup">
+          </div>
+
+          <!-- Pouch 3: Front Right (Turmeric Powder) -->
+          <div class="pl-pouch-item pouch-right">
+            <img src="images/your-brand-turmeric-powder.png" alt="Your Brand Turmeric Powder Pouch Mockup">
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- SECTION: WHY US ? (MATCHING REFERENCE DESIGN) -->
+  <section class="pl-why-us-section">
+    <div class="pl-why-us-container">
+      <h2 class="pl-why-us-title">Why us ?</h2>
+      
+      <div class="pl-why-us-grid">
+        
+        <!-- Card 1: Extensive Product Range -->
+        <div class="pl-why-card">
+          <h3 class="pl-why-card-title">Extensive Product<br>Range</h3>
+          <p class="pl-why-card-desc">
+            We offer a wide selection of premium spice products that can be customized under your private label. From natural herbs to whole spice blends, we have a diverse range to meet your specific requirements.
+          </p>
+        </div>
+
+        <!-- Card 2: Quality Assurance -->
+        <div class="pl-why-card">
+          <h3 class="pl-why-card-title">Quality<br>Assurance</h3>
+          <p class="pl-why-card-desc">
+            Our products are crafted with utmost care and strict quality standards. We source the best ingredients, carefully test and procedure, and follow industry best practices to ensure exceptional quality and safety.
+          </p>
+        </div>
+
+        <!-- Card 3: Seamless Process -->
+        <div class="pl-why-card">
+          <h3 class="pl-why-card-title">Seamless<br>Process</h3>
+          <p class="pl-why-card-desc">
+            Our streamlined process simplifies private label production. From initial concept development to packaging design and distribution, we guide you through every step, ensuring a smooth and hassle-free experience.
+          </p>
+        </div>
+
+        <!-- Card 4: Flexible Customization -->
+        <div class="pl-why-card">
+          <h3 class="pl-why-card-title">Flexible<br>Customization</h3>
+          <p class="pl-why-card-desc">
+            We understand that every brand is unique. That's why we offer flexible customization options, allowing you to create products that align with your brand identity and target market.
+          </p>
+        </div>
+
+        <!-- Card 5: Timely Delivery -->
+        <div class="pl-why-card">
+          <h3 class="pl-why-card-title">Timely<br>Delivery</h3>
+          <p class="pl-why-card-desc">
+            We value punctuality and ensure on-time delivery of your private-label products. Our efficient production and logistics processes enable us to meet deadlines and fulfil orders promptly.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION: ADVANTAGES OF PVT. LABEL WITH SARVAMTA -->
+  <section class="pl-advantages-section">
+    <div class="pl-adv-container">
+      <div class="pl-adv-header">
+        <h2 class="pl-adv-title">Advantages of Pvt. Label with SARVAMTA</h2>
+      </div>
+
+      <div class="pl-adv-cards-stack">
+        
+        <!-- Card 1: Text Left | Image Right -->
+        <div class="pl-box-card">
+          <div class="pl-box-col-left">
+            <div class="pl-box-text-content">
+              <h3 class="pl-box-title">Brand Differentiation</h3>
+              <p class="pl-box-desc">
+                Private labelling with SARVAMTA allows you to create a unique brand identity and stand out in the market. Customized packaging and labelling help differentiate your products from competitors, enhancing brand recognition and customer loyalty.
+              </p>
+            </div>
+          </div>
+          <div class="pl-box-col-right">
+            <div class="pl-box-img-wrap">
+              <img src="images/sarvamta-private-lable-i1.webp" alt="Brand Differentiation" class="pl-box-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 2: Image Left | Text Right -->
+        <div class="pl-box-card card-reversed">
+          <div class="pl-box-col-left">
+            <div class="pl-box-img-wrap">
+              <img src="images/sarvamta-private-lable-i2.webp" alt="Greater Control over Pricing" class="pl-box-img">
+            </div>
+          </div>
+          <div class="pl-box-col-right">
+            <div class="pl-box-text-content">
+              <h3 class="pl-box-title">Greater Control over Pricing</h3>
+              <p class="pl-box-desc">
+                With SARVAMTA, you have control over pricing strategies, allowing you to set competitive prices based on market dynamics and target customer segments. This flexibility helps maximize profitability and respond to pricing fluctuations effectively.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 3: Text Left | Image Right -->
+        <div class="pl-box-card">
+          <div class="pl-box-col-left">
+            <div class="pl-box-text-content">
+              <h3 class="pl-box-title">Better Profit Margins</h3>
+              <p class="pl-box-desc">
+                We offer higher profit margins compared to reselling existing brands. By eliminating middlemen and sourcing directly from SARVAMTA, you can enjoy cost savings and increased profitability.
+              </p>
+            </div>
+          </div>
+          <div class="pl-box-col-right">
+            <div class="pl-box-img-wrap">
+              <img src="images/sarvamta-private-lable-i3.webp" alt="Better Profit Margins" class="pl-box-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 4: Image Left | Text Right -->
+        <div class="pl-box-card card-reversed">
+          <div class="pl-box-col-left">
+            <div class="pl-box-img-wrap">
+              <img src="images/sarvamta-private-lable-i4.webp" alt="Improved Customer Loyalty" class="pl-box-img">
+            </div>
+          </div>
+          <div class="pl-box-col-right">
+            <div class="pl-box-text-content">
+              <h3 class="pl-box-title">Improved Customer Loyalty</h3>
+              <p class="pl-box-desc">
+                Offering private label products creates a sense of exclusivity, fostering customer loyalty. When customers associate your brand with high-quality, customized products, they are more likely to develop trust and loyalty, leading to repeat purchases and long-term relationships.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 5: Text Left | Image Right -->
+        <div class="pl-box-card">
+          <div class="pl-box-col-left">
+            <div class="pl-box-text-content">
+              <h3 class="pl-box-title">Better Inventory Management</h3>
+              <p class="pl-box-desc">
+                Private labelling enables you to align production with specific demand, optimizing inventory management. You can adjust quantities to match customer requirements, minimizing excess inventory and reducing the risk of product obsolescence.
+              </p>
+            </div>
+          </div>
+          <div class="pl-box-col-right">
+            <div class="pl-box-img-wrap">
+              <img src="images/sarvamta-private-lable-i5.webp" alt="Better Inventory Management" class="pl-box-img">
+            </div>
+          </div>
+        </div>
+
+        <!-- Card 6: Image Left | Text Right -->
+        <div class="pl-box-card card-reversed">
+          <div class="pl-box-col-left">
+            <div class="pl-box-img-wrap">
+              <img src="images/sarvamta-private-lable-i6.webp" alt="Increased Flexibility" class="pl-box-img">
+            </div>
+          </div>
+          <div class="pl-box-col-right">
+            <div class="pl-box-text-content">
+              <h3 class="pl-box-title">Increased Flexibility</h3>
+              <p class="pl-box-desc">
+                Private labelling with SARVAMTA allows you to adapt quickly to market trends and customer preferences. You have the flexibility to introduce new products, modify existing ones, and respond to changing market demands, ensuring your brand remains relevant and competitive.
+              </p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION 3: STEP-BY-STEP PROCESS -->
+  <section class="pl-process-section">
+    <div class="pl-section-header">
+      <h2 class="pl-section-title">How Our Private Labeling Works</h2>
+    </div>
+
+    <div class="pl-process-grid">
+      
+      <div class="pl-step-card">
+        <div class="pl-step-num">01</div>
+        <h3 class="pl-step-title">Consultation</h3>
+        <p class="pl-step-desc">
+          We discuss your product specifications, target markets, volume requirements, packaging style, and brand goals.
+        </p>
+      </div>
+
+      <div class="pl-step-card">
+        <div class="pl-step-num">02</div>
+        <h3 class="pl-step-title">Sampling & Approval</h3>
+        <p class="pl-step-desc">
+          We create bench samples of whole, ground, or blended spices for your organoleptic testing, taste, and color sign-off.
+        </p>
+      </div>
+
+      <div class="pl-step-card">
+        <div class="pl-step-num">03</div>
+        <h3 class="pl-step-title">Packaging & Design</h3>
+        <p class="pl-step-desc">
+          We print and configure your custom branded pouches, jars, or cartons with your logo, barcode, and regulatory labeling.
+        </p>
+      </div>
+
+      <div class="pl-step-card">
+        <div class="pl-step-num">04</div>
+        <h3 class="pl-step-title">Production & Dispatch</h3>
+        <p class="pl-step-desc">
+          Hygienic manufacturing, laboratory testing, vacuum/nitrogen sealing, and prompt dispatch to your warehouse or port.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+
+
+  <!-- RICH MODERN FOOTER SECTION (IDENTICAL TO HOME PAGE) -->
+  <footer class="rich-footer">
+    <div class="footer-top-wrap">
+      <div class="footer-container">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="footer-col footer-col-brand">
+          <img src="images/logo.png" alt="Sarvamta Spices Logo" class="footer-brand-logo">
+          <p class="footer-brand-desc">
+            SARVAMTA Food and Spices Pvt. Ltd. is a premier spice manufacturer, exporter, and third-party white labeling specialist bringing pure natural taste & aroma to every kitchen.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+            <li><a href="our-brand.html"><i class="fa-solid fa-chevron-right"></i> Our Brand</a></li>
+            <li><a href="private-label.html"><i class="fa-solid fa-chevron-right"></i> Private Label</a></li>
+            <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Products</a></li>
+            <li><a href="javascript:void(0)" onclick="openInquiryModal()"><i class="fa-solid fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Spices & Services -->
+        <div class="footer-col">
+          <h4 class="footer-title">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Whole Spices</a></li>
+            <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Blended Spices</a></li>
+            <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Ground Spices</a></li>
+            <li><a href="private-label.html"><i class="fa-solid fa-chevron-right"></i> White Labeling</a></li>
+            <li><a href="javascript:void(0)" onclick="openInquiryModal('Global Bulk Export')"><i class="fa-solid fa-chevron-right"></i> Global Bulk Export</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Location & Contact -->
+        <div class="footer-col">
+          <h4 class="footer-title">Contact & Location</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <i class="fa-solid fa-industry"></i>
+              <span><strong>Factory Address:</strong><br>C/42, B.N. Industrial Estate, Kathwada GIDC Road, Ahmedabad, Gujarat - 382415</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <span><a href="tel:+919979978768">+91 99799 78768</a> / <a href="tel:+919979978767">78767</a></span>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <span><a href="mailto:sarvamtafood.spices@gmail.com">sarvamtafood.spices@gmail.com</a><br><a href="mailto:support@sarvamtafoodandspices.com">support@sarvamtafoodandspices.com</a></span>
+            </li>
+          </ul>
+          <a href="contact.html#contact-form" class="footer-btn-inquiry">Send Inquiry <i class="fa-solid fa-paper-plane"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-container">
+        <p>© 2026 SARVAMTA Food and Spices Pvt. Ltd. All Rights Reserved. • Ahmedabad, Gujarat, India</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INQUIRY / CONTACT MODAL -->
+  <div id="inquiry-modal" class="modal-backdrop">
+    <div class="modal-card-light">
+      <button class="modal-close" onclick="closeInquiryModal()">&times;</button>
+      <img src="images/logo.png" alt="Sarvamta Logo" class="modal-logo-img">
+      <h3>Contact <span class="text-gold-gradient">SARVAMTA Food & Spices</span></h3>
+      <form onsubmit="event.preventDefault(); alert('Thank you! SARVAMTA Food and Spices Pvt. Ltd. will contact you shortly.'); closeInquiryModal();">
+        <input type="text" placeholder="Your Full Name" required class="light-input">
+        <input type="tel" placeholder="Mobile / WhatsApp Number" required class="light-input">
+        <select id="modal-select-product" class="light-input">
+          <option value="Third-Party White Labeling">Third-Party White Labeling / Private Label</option>
+          <option value="All Spices Range">All Spices Range</option>
+          <option value="Whole Spices">Whole Spices</option>
+          <option value="Blended Spices">Blended Spices</option>
+          <option value="Ground Spices">Ground Spices</option>
+          <option value="Global Bulk Export">Global Bulk Export</option>
+          <option value="Contract Manufacturing">Contract Manufacturing & Packaging</option>
+          <option value="Turmeric Powder">Turmeric Powder (હળદર)</option>
+          <option value="Red Chili Powder">Red Chili Powder (મરચું)</option>
+          <option value="Dhana Jeera Powder">Dhana Jeera Powder (ધાણાજીરું)</option>
+          <option value="Garam Masala">Garam Masala (ગરમ મસાલો)</option>
+        </select>
+        <textarea placeholder="Message / Specific Requirements (e.g. Quantity, Packaging type)" rows="3" class="light-input"></textarea>
+        <button type="submit" class="btn-modal-submit">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Product Details | SARVAMTA Spices</title>
+  
+  <!-- SEO & Meta Tags -->
+  <meta name="description" content="Buy 100% pure & natural SARVAMTA Spices online. Cryogenic milled ground spices, masala mix, and whole spices with rich color and aromatic flavor.">
+  <meta name="keywords" content="Sarvamta spices, Resham Patti Chilli Powder, Turmeric Powder, Masala Mix, Buy Spices Online">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800&family=Outfit:wght@300;400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- FONT AWESOME ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- MAIN CSS -->
+  <link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* STRICT 0-RADIUS SQUARE DESIGN FOR ALL ELEMENTS */
+    * {
+      border-radius: 0px !important;
+    }
+
+    body {
+      background-color: #faf9f6;
+      color: #1e293b;
+      font-family: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* HEADER LOGO FIX */
+    .header-logo-img {
+      height: 60px !important;
+      width: auto !important;
+      max-width: 200px !important;
+      object-fit: contain !important;
+      display: block !important;
+    }
+
+    .pd-container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 20px;
+      width: 100%;
+    }
+
+    /* BREADCRUMB STRIP */
+    .pd-hero-breadcrumb {
+      background: #ffffff;
+      padding: 105px 0 16px 0;
+      border-bottom: 1px solid #e2e8f0;
+    }
+
+    .pd-breadcrumb-list {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: #64748b;
+    }
+    .pd-breadcrumb-list a {
+      color: #260802;
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .pd-breadcrumb-list a:hover { color: #d48806; }
+    .pd-breadcrumb-list span.curr { color: #d48806; font-weight: 700; }
+
+    /* MAIN PRODUCT DETAIL CONTAINER */
+    .pd-section-wrapper {
+      padding: 32px 0 60px 0;
+      background: #ffffff !important;
+    }
+
+    .pd-main-card-bg {
+      background: transparent;
+      border: none !important;
+      padding: 0;
+      box-shadow: none !important;
+    }
+
+    .pd-main-grid {
+      display: grid;
+      grid-template-columns: 460px 1fr;
+      gap: 44px;
+      align-items: start;
+    }
+
+    /* LEFT SIDE: GALLERY & THUMBNAILS */
+    .pd-gallery-card {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .pd-main-img-box {
+      width: 100%;
+      height: 420px;
+      background: transparent;
+      border: none !important;
+      box-shadow: none !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding: 0;
+    }
+
+    .pd-main-img-box img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .pd-thumbnails-slider {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 10px 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    .pd-thumbnails-slider::-webkit-scrollbar {
+      display: none;
+    }
+
+    .pd-thumb-item {
+      width: 80px;
+      height: 80px;
+      border: 1px solid #e2e8f0;
+      background: #ffffff;
+      cursor: pointer;
+      flex-shrink: 0;
+      padding: 4px;
+      transition: border-color 0.2s ease;
+    }
+
+    .pd-thumb-item:hover, .pd-thumb-item.active {
+      border-color: #d48806;
+      box-shadow: none !important;
+      outline: none;
+    }
+
+    .pd-thumb-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    /* RIGHT SIDE: PRODUCT INFO & QUOTE ACTION */
+    .pd-info-card {
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pd-cat-badge {
+      display: inline-block;
+      background: #fff7ed;
+      color: #c2410c;
+      border: 1px solid #ffedd5;
+      padding: 4px 14px;
+      font-size: 0.8rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      width: fit-content;
+    }
+
+    .pd-title {
+      font-family: 'Cinzel', serif;
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #260802;
+      line-height: 1.25;
+      margin-top: 6px;
+    }
+
+    .pd-stars-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 0.95rem;
+      color: #eab308;
+    }
+    .pd-stars-row span { color: #64748b; font-weight: 600; font-size: 0.88rem; }
+    .pd-in-stock-tag {
+      background: #ecfdf5;
+      color: #047857;
+      border: 1px solid #a7f3d0;
+      padding: 2px 10px;
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .pd-price-display {
+      font-size: 2.2rem;
+      font-weight: 800;
+      color: #d48806;
+      display: flex;
+      align-items: baseline;
+      gap: 12px;
+      background: transparent;
+      padding: 8px 0;
+      border: none !important;
+    }
+
+    .pd-mrp-price {
+      text-decoration: line-through;
+      color: #94a3b8;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .pd-discount-badge {
+      background: #dc2626;
+      color: #ffffff;
+      font-size: 0.78rem;
+      font-weight: 800;
+      padding: 3px 8px;
+    }
+
+    .pd-options-section {
+      border-top: 1px solid #e2e8f0;
+      border-bottom: 1px solid #e2e8f0;
+      padding: 20px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .pd-option-label {
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 10px;
+      display: block;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .pd-pkg-pills-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .pd-pkg-pill-btn {
+      padding: 10px 22px;
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #334155;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .pd-pkg-pill-btn:hover {
+      border-color: #d48806;
+      color: #d48806;
+      background: #fff7ed;
+    }
+
+    .pd-pkg-pill-btn.active {
+      background: #260802;
+      color: #ffffff;
+      border-color: #260802;
+      box-shadow: 0 4px 12px rgba(38, 8, 2, 0.25);
+    }
+
+    .pd-qty-action-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .pd-qty-box {
+      display: flex;
+      align-items: center;
+      border: 1.5px solid #cbd5e1;
+      background: #ffffff;
+      height: 48px;
+    }
+
+    .pd-qty-btn {
+      width: 44px;
+      height: 100%;
+      background: #f1f5f9;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #334155;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .pd-qty-btn:hover { background: #e2e8f0; }
+
+    .pd-qty-input {
+      width: 60px;
+      height: 100%;
+      border: none;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1rem;
+      color: #1e293b;
+      outline: none;
+    }
+
+    .btn-pd-quote {
+      flex: 1;
+      height: 48px;
+      background: linear-gradient(135deg, #d48806, #ff9800);
+      color: #ffffff;
+      border: none;
+      font-weight: 800;
+      font-size: 1rem;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: all 0.25s ease;
+      box-shadow: 0 4px 15px rgba(212, 136, 6, 0.3);
+    }
+    .btn-pd-quote:hover {
+      background: linear-gradient(135deg, #b87300, #f57c00);
+      transform: translateY(-2px);
+    }
+
+    .pd-trust-badges {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background: #faf9f6;
+      padding: 18px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .pd-trust-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #334155;
+    }
+    .pd-trust-item i {
+      color: #d48806;
+      font-size: 1.15rem;
+    }
+
+    /* COLLAPSIBLE ACCORDION SECTION (DESCRIPTION & RECIPES) */
+    .pd-accordions-container {
+      margin-top: 44px;
+      border-top: 2px solid #e2e8f0;
+      padding-top: 36px;
+    }
+
+    .pd-accordion-item {
+      border: 1.5px solid #cbd5e1;
+      margin-bottom: 16px;
+      background: #ffffff;
+      overflow: hidden;
+    }
+
+    .pd-accordion-header {
+      width: 100%;
+      padding: 20px 24px;
+      background: #ffffff;
+      border: none;
+      text-align: left;
+      font-size: 1.2rem;
+      font-weight: 800;
+      color: #260802;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.2s;
+    }
+
+    .pd-accordion-header:hover {
+      background: #faf9f6;
+    }
+
+    .pd-accordion-header i {
+      font-size: 1.05rem;
+      color: #d48806;
+      transition: transform 0.3s ease;
+    }
+
+    .pd-accordion-content {
+      padding: 28px;
+      border-top: 1px solid #e2e8f0;
+      display: none;
+      background: #ffffff;
+    }
+
+    .pd-accordion-item.active .pd-accordion-content {
+      display: block;
+    }
+
+    .pd-accordion-item.active .pd-accordion-header i {
+      transform: rotate(180deg);
+    }
+
+    .pd-desc-title {
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-bottom: 16px;
+      line-height: 1.35;
+    }
+
+    .pd-desc-text {
+      font-size: 0.98rem;
+      color: #475569;
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .pd-features-list {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 14px;
+      background: #faf9f6;
+      padding: 20px;
+      border: 1px solid #e2e8f0;
+    }
+
+    .pd-features-list li {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #334155;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .pd-features-list li i {
+      color: #10b981;
+      font-size: 1.05rem;
+    }
+
+    /* SIMILAR PRODUCTS SECTION */
+    .pd-related-section {
+      margin-top: 60px;
+      padding-top: 36px;
+      border-top: 2px solid #e2e8f0;
+    }
+
+    .pd-related-title {
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #260802;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pd-related-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+    }
+
+    /* SIMILAR PRODUCT CARD ITEM (MATCHING SHOP & USER SCREENSHOT) */
+    .pd-sim-card {
+      background: #ffffff;
+      border: 1px solid #ececec;
+      border-radius: 0px !important;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.02);
+    }
+
+    .pd-sim-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+      border-color: #d1d5db;
+    }
+
+    .pd-sim-card .card-img-wrapper {
+      position: relative;
+      width: 100%;
+      height: 190px;
+      background-color: #ffffff;
+      border-radius: 0px !important;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      margin-bottom: 12px;
+    }
+
+    .pd-sim-card .card-img-wrapper img {
+      max-width: 100%;
+      max-height: 100%;
+      object-fit: contain;
+      border-radius: 0px !important;
+      transition: transform 0.35s ease;
+    }
+
+    .pd-sim-card:hover .card-img-wrapper img {
+      transform: scale(1.04);
+    }
+
+    .pd-sim-card .card-details {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      flex-grow: 1;
+    }
+
+    .pd-sim-card .card-name-btn-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+
+    .pd-sim-card .card-title {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: #111827;
+      line-height: 1.3;
+      margin: 0;
+      flex: 1;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .pd-sim-card .btn-card-add-cart {
+      background: linear-gradient(135deg, #d48806, #ff9800);
+      color: #ffffff;
+      border: none;
+      border-radius: 0px !important;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.74rem;
+      font-weight: 700;
+      padding: 6px 10px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      box-shadow: 0 2px 8px rgba(212, 136, 6, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .pd-sim-card .btn-card-add-cart:hover {
+      background: linear-gradient(135deg, #b87300, #f57c00);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(212, 136, 6, 0.45);
+    }
+
+    .pd-sim-card .card-price-row {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.95rem;
+      color: #374151;
+      margin-top: 2px;
+    }
+
+    .pd-sim-card .card-price-val {
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: #111827;
+    }
+
+    .pd-sim-card .card-packaging-pills {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-top: 6px;
+    }
+
+    .pd-sim-card .pkg-pill {
+      background-color: #f3f4f6;
+      border: 1px solid #e5e7eb;
+      color: #4b5563;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 0px !important;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      user-select: none;
+    }
+
+    .pd-sim-card .pkg-pill:hover {
+      border-color: #d1d5db;
+      background-color: #e5e7eb;
+      color: #111;
+    }
+
+    .pd-sim-card .pkg-pill.active {
+      background: linear-gradient(135deg, #d48806, #ff9800);
+      border: none;
+      color: #ffffff;
+      font-weight: 700;
+      box-shadow: 0 3px 10px rgba(212, 136, 6, 0.3);
+    }
+
+    @media (max-width: 1200px) {
+      .pd-related-grid { grid-template-columns: repeat(3, 1fr); }
+    }
+
+    @media (max-width: 992px) {
+      .pd-main-grid { grid-template-columns: 1fr; gap: 32px; }
+      .pd-features-list { grid-template-columns: 1fr; }
+      .pd-related-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 576px) {
+      .pd-related-grid { grid-template-columns: 1fr; }
+      .pd-qty-action-row { flex-direction: column; width: 100%; }
+      .btn-pd-quote { width: 100%; }
+    }
+  </style>
+</head>
+<body style="background-color: #ffffff !important;">
+
+  <!-- FIXED HEADER WITH TOP-LEFT LOGO & TOP MENU -->
+  <header class="light-header">
+    <div class="header-inner">
+      <!-- TOP-LEFT TRANSPARENT LOGO -->
+      <a href="index.html" class="top-left-logo-box" id="top-left-logo">
+        <img src="images/logo.png" alt="Sarvamta Spices Logo" class="header-logo-img">
+      </a>
+
+      <!-- TOP NAVIGATION MENU -->
+      <nav class="top-nav-menu" id="top-nav-menu">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="shop.html" class="nav-item active">Shop Now</a>
+        <a href="products.html" class="nav-item">Product</a>
+        <a href="private-label.html" class="nav-item">Private Label</a>
+        <a href="about.html" class="nav-item">About Us</a>
+        <a href="contact.html" class="nav-item">Contact Us</a>
+        <a href="contact.html#contact-form" class="btn-quote-nav">Quote Now</a>
+      </nav>
+
+      <!-- MOBILE MENU HAMBURGER BUTTON -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- BREADCRUMB STRIP -->
+  <div class="pd-hero-breadcrumb">
+    <div class="pd-container">
+      <div class="pd-breadcrumb-list">
+        <a href="index.html">Home</a>
+        <i class="fa-solid fa-chevron-right" style="font-size:0.72rem;"></i>
+        <a href="shop.html">Shop</a>
+        <i class="fa-solid fa-chevron-right" id="pd-bc-arrow" style="font-size:0.72rem; display:none;"></i>
+        <span id="pd-bc-cat" style="display:none;"></span>
+        <i class="fa-solid fa-chevron-right" id="pd-bc-arrow2" style="font-size:0.72rem; display:none;"></i>
+        <span class="curr" id="pd-bc-title">Loading...</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN PRODUCT DETAIL CONTAINER -->
+  <section class="pd-section-wrapper">
+    <div class="pd-container">
+      
+      <div class="pd-main-grid">
+          <!-- LEFT COLUMN: MAIN IMAGE & THUMBNAIL SLIDER STRIP -->
+          <div class="pd-gallery-card">
+            <div class="pd-main-img-box">
+              <img id="pd-main-img" src="images/logo.png" alt="Product Image" onerror="this.src='images/logo.png'">
+            </div>
+
+            <!-- THUMBNAIL SLIDER STRIP -->
+            <div class="pd-thumbnails-slider" id="pd-thumbnails" style="display:none;">
+              <!-- Dynamically Populated Thumbnails -->
+            </div>
+          </div>
+
+          <!-- RIGHT COLUMN: PRODUCT DETAILS & QUOTE ACTION -->
+          <div class="pd-info-card">
+            <div>
+              <span class="pd-cat-badge" id="pd-category" style="display:none;"></span>
+              <h1 class="pd-title" id="pd-title">Loading Product...</h1>
+            </div>
+
+            <div class="pd-price-display">
+              <span class="pd-mrp-price" id="pd-mrp" style="display:none;">₹ 0.00</span>
+              <span id="pd-price">₹ 0.00</span>
+              <span class="pd-discount-badge" id="pd-discount" style="display:none;">0% OFF</span>
+            </div>
+
+            <!-- PACKAGING OPTIONS & QUANTITY -->
+            <div class="pd-options-section">
+              <div>
+                <span class="pd-option-label">Select Packaging Size *</span>
+                <div class="pd-pkg-pills-row" id="pd-pkg-pills">
+                  <!-- Dynamically populated packaging pills -->
+                </div>
+              </div>
+
+              <div>
+                <span class="pd-option-label">Order Quantity (Packs / Bags) *</span>
+                <div class="pd-qty-action-row">
+                  <div class="pd-qty-box">
+                    <button type="button" class="pd-qty-btn" onclick="changeQuantity(-1)">-</button>
+                    <input type="text" id="pd-qty-input" value="1" class="pd-qty-input">
+                    <button type="button" class="pd-qty-btn" onclick="changeQuantity(1)">+</button>
+                  </div>
+
+                  <button type="button" class="btn-pd-quote" onclick="triggerProductQuote()">
+                    <i class="fa-solid fa-paper-plane"></i> Send Inquiry / Get Quote
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PRODUCT DESCRIPTION SECTION (FROM DATABASE) -->
+        <div class="pd-accordions-container">
+          
+          <!-- ACCORDION: DESCRIPTION -->
+          <div class="pd-accordion-item active" id="acc-desc">
+            <button type="button" class="pd-accordion-header" onclick="toggleAccordion('acc-desc')">
+              <span>Description</span>
+              <i class="fa-solid fa-chevron-up"></i>
+            </button>
+            <div class="pd-accordion-content">
+              <h2 class="pd-desc-title" id="pd-desc-heading"></h2>
+              <p class="pd-desc-text" id="pd-desc-text" style="white-space: pre-line; margin-bottom: 0;">
+                Loading product description from database...
+              </p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- SIMILAR PRODUCTS SECTION -->
+        <div class="pd-related-section" id="pd-similar-section">
+          <div class="pd-related-title">
+            <span>Similar Products</span>
+            <a href="shop.html" style="font-size:0.9rem; color:#d48806; text-decoration:none; font-weight:700;">View Full Catalog &rarr;</a>
+          </div>
+
+          <div class="pd-related-grid" id="pd-related-grid">
+            <!-- Dynamically rendered similar product cards -->
+          </div>
+        </div>
+
+    </div>
+  </section>
+
+  <!-- RICH MODERN FOOTER SECTION -->
+  <footer class="rich-footer">
+    <div class="footer-top-wrap">
+      <div class="footer-container">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="footer-col footer-col-brand">
+          <img src="images/logo.png" alt="Sarvamta Spices Logo" class="footer-brand-logo">
+          <p class="footer-brand-desc">
+            SARVAMTA Food and Spices Pvt. Ltd. is a premier spice manufacturer, exporter, and third-party white labeling specialist bringing pure natural taste & aroma to every kitchen.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+            <li><a href="shop.html"><i class="fa-solid fa-chevron-right"></i> Shop Now</a></li>
+            <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Product</a></li>
+            <li><a href="private-label.html"><i class="fa-solid fa-chevron-right"></i> Private Label</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Spices & Services -->
+        <div class="footer-col">
+          <h4 class="footer-title">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html?category=Whole Spices"><i class="fa-solid fa-chevron-right"></i> Whole Spices</a></li>
+            <li><a href="shop.html?category=Masala Mix"><i class="fa-solid fa-chevron-right"></i> Blended Spices</a></li>
+            <li><a href="shop.html?category=Ground Spices"><i class="fa-solid fa-chevron-right"></i> Ground Spices</a></li>
+            <li><a href="private-label.html"><i class="fa-solid fa-chevron-right"></i> White Labeling</a></li>
+            <li><a href="javascript:void(0)" onclick="openInquiryModal('Global Bulk Export')"><i class="fa-solid fa-chevron-right"></i> Global Bulk Export</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Location & Contact -->
+        <div class="footer-col">
+          <h4 class="footer-title">Contact & Location</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <i class="fa-solid fa-industry"></i>
+              <span><strong>Factory Address:</strong><br>C/42, B.N. Industrial Estate, Kathwada GIDC Road, Ahmedabad, Gujarat - 382415</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <span><a href="tel:+919979978768">+91 99799 78768</a> / <a href="tel:+919979978767">78767</a></span>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <span><a href="mailto:sarvamtafood.spices@gmail.com">sarvamtafood.spices@gmail.com</a><br><a href="mailto:support@sarvamtafoodandspices.com">support@sarvamtafoodandspices.com</a></span>
+            </li>
+          </ul>
+          <a href="contact.html#contact-form" class="footer-btn-inquiry" style="border-radius:0px !important;">Send Inquiry <i class="fa-solid fa-paper-plane"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-container">
+        <p>© 2026 SARVAMTA Food and Spices Pvt. Ltd. All Rights Reserved. • Ahmedabad, Gujarat, India</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- INQUIRY POPUP MODAL -->
+  <div id="inquiry-modal" class="modal-backdrop">
+    <div class="modal-card-light" style="border-radius:0px !important;">
+      <button class="modal-close" onclick="closeInquiryModal()">&times;</button>
+      <img src="images/logo.png" alt="Sarvamta Logo" class="modal-logo-img">
+      <h3>Product <span class="text-gold-gradient">Inquiry</span></h3>
+      <form action="https://formspree.io/f/mppqdlvg" method="POST">
+        <input type="text" name="name" placeholder="Your Full Name *" required class="light-input" style="border-radius:0px !important;">
+        <input type="email" name="email" placeholder="Email Address *" required class="light-input" style="border-radius:0px !important;">
+        <input type="tel" name="phone" placeholder="Mobile / WhatsApp Number *" required class="light-input" style="border-radius:0px !important;">
+        <input type="text" name="product_name" id="modal-select-product" readonly placeholder="Product Name *" required class="light-input" style="border-radius:0px !important; background:#f8fafc; color:#1e293b; font-weight:700; cursor:not-allowed;" value="General Spices Inquiry">
+        <select name="packaging_size" id="modal-select-pkg" class="light-input" style="border-radius:0px !important;" required>
+          <option value="200g">200g Pack</option>
+          <option value="500g">500g Pack</option>
+          <option value="1kg">1kg Pack</option>
+          <option value="5kg">5kg Bag</option>
+          <option value="10kg Bulk">10kg Bulk Bag</option>
+          <option value="25kg Bulk">25kg Export Bag</option>
+        </select>
+        <input type="text" name="quantity" id="modal-input-qty" value="1" placeholder="Quantity (e.g. 1 Pack / 10 Bags) *" required class="light-input" style="border-radius:0px !important;">
+        <button type="submit" class="btn-modal-submit" style="border-radius:0px !important;">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- SCRIPT LOGIC -->
+  <script src="app.js"></script>
+  <script>
+    let currentProduct = null;
+    let selectedPackage = null;
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      const urlParams = new URLSearchParams(window.location.search);
+      const prodNameParam = urlParams.get('name') || urlParams.get('product');
+      const prodIdParam = parseInt(urlParams.get('id'));
+      
+      let allProds = [];
+      try {
+        const res = await fetch('api/get_products.php');
+        const json = await res.json();
+        if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+          allProds = json.data;
+        }
+      } catch(e) {
+        console.error('Failed to load products from DB:', e);
+      }
+
+      // Products are loaded strictly from MySQL Database via api/get_products.php
+
+      if (allProds.length > 0) {
+        if (prodNameParam) {
+          let cleanSearch = prodNameParam;
+          try {
+            cleanSearch = decodeURIComponent(decodeURIComponent(cleanSearch));
+          } catch(e) {
+            try { cleanSearch = decodeURIComponent(cleanSearch); } catch(e2) {}
+          }
+          cleanSearch = cleanSearch.replace(/\+/g, ' ').trim().toLowerCase();
+          currentProduct = allProds.find(p => p.name.trim().toLowerCase() === cleanSearch)
+            || allProds.find(p => p.name.trim().toLowerCase().includes(cleanSearch) || cleanSearch.includes(p.name.trim().toLowerCase()))
+            || allProds.find(p => p.id === prodIdParam)
+            || allProds[0];
+        } else if (prodIdParam) {
+          currentProduct = allProds.find(p => p.id === prodIdParam) || allProds[0];
+        } else {
+          currentProduct = allProds[0];
+        }
+
+        renderProductDetail(currentProduct);
+        renderSimilarProducts(allProds, currentProduct);
+      } else {
+        document.getElementById('pd-title').textContent = 'Product Not Found';
+        document.getElementById('pd-desc-text').textContent = 'No products found in database.';
+        const relSection = document.getElementById('pd-similar-section') || document.querySelector('.pd-related-section');
+        if (relSection) relSection.style.display = 'none';
+      }
+    });
+
+    function renderProductDetail(p) {
+      // Breadcrumb
+      const bcCat = document.getElementById('pd-bc-cat');
+      const bcArrow = document.getElementById('pd-bc-arrow');
+      const bcArrow2 = document.getElementById('pd-bc-arrow2');
+      const bcTitle = document.getElementById('pd-bc-title');
+
+      if (p.category) {
+        bcCat.textContent = p.category;
+        bcCat.style.display = 'inline';
+        if (bcArrow) bcArrow.style.display = 'inline';
+        if (bcArrow2) bcArrow2.style.display = 'inline';
+      } else {
+        bcCat.style.display = 'none';
+        if (bcArrow) bcArrow.style.display = 'none';
+      }
+      bcTitle.textContent = p.name || '';
+
+      // Title & Category badge
+      const catBadge = document.getElementById('pd-category');
+      if (p.category) {
+        catBadge.textContent = p.category;
+        catBadge.style.display = 'inline-block';
+      } else {
+        catBadge.style.display = 'none';
+      }
+      document.getElementById('pd-title').textContent = p.name || '';
+
+      // Main image
+      const mainImg = document.getElementById('pd-main-img');
+      mainImg.src = p.image || 'images/logo.png';
+      mainImg.alt = p.name || 'Product Image';
+      mainImg.onerror = () => { mainImg.src = 'images/logo.png'; };
+
+      // Gallery Thumbnails: Only show if product has multiple distinct images
+      const thumbsContainer = document.getElementById('pd-thumbnails');
+      const galleryImages = (Array.isArray(p.images) && p.images.length > 1) 
+        ? p.images 
+        : (p.image ? [p.image] : []);
+
+      if (galleryImages.length > 1) {
+        thumbsContainer.style.display = 'flex';
+        let thumbsHtml = '';
+        galleryImages.forEach((img, idx) => {
+          thumbsHtml += `
+            <div class="pd-thumb-item ${idx === 0 ? 'active' : ''}" onclick="switchMainImage(this, '${img}')">
+              <img src="${img}" alt="${p.name} image ${idx+1}" onerror="this.src='images/logo.png'">
+            </div>
+          `;
+        });
+        thumbsContainer.innerHTML = thumbsHtml;
+      } else {
+        thumbsContainer.style.display = 'none';
+      }
+
+      // Packages & Pricing (Actual Price and Offer Price directly from DB)
+      const pkgContainer = document.getElementById('pd-pkg-pills');
+      let pkgHtml = '';
+      const pkgs = (p.packages && p.packages.length > 0) ? p.packages : [{ size: 'Standard', actual_price: 0, price: 0 }];
+      selectedPackage = pkgs[0];
+
+      pkgs.forEach((pkg, idx) => {
+        pkgHtml += `
+          <button type="button" class="pd-pkg-pill-btn ${idx === 0 ? 'active' : ''}" onclick='selectPackage(this, ${JSON.stringify(pkg)})'>
+            ${pkg.size}
+          </button>
+        `;
+      });
+      pkgContainer.innerHTML = pkgHtml;
+      updatePriceDisplay(selectedPackage);
+
+      // Description: Strictly product name and description from DB
+      document.getElementById('pd-desc-heading').textContent = p.name || '';
+      document.getElementById('pd-desc-text').textContent = p.description || '';
+    }
+
+    function switchMainImage(thumbEl, imgSrc) {
+      document.querySelectorAll('.pd-thumb-item').forEach(el => el.classList.remove('active'));
+      thumbEl.classList.add('active');
+      const mainImg = document.getElementById('pd-main-img');
+      mainImg.src = imgSrc;
+    }
+
+    function selectPackage(btnEl, pkg) {
+      document.querySelectorAll('.pd-pkg-pill-btn').forEach(el => el.classList.remove('active'));
+      btnEl.classList.add('active');
+      selectedPackage = pkg;
+      updatePriceDisplay(pkg);
+    }
+
+    function updatePriceDisplay(pkg) {
+      const offerPrice = parseFloat(pkg.price) || 0;
+      const actualPrice = (pkg.actual_price !== undefined && pkg.actual_price !== null && parseFloat(pkg.actual_price) > 0) 
+        ? parseFloat(pkg.actual_price) 
+        : offerPrice;
+
+      document.getElementById('pd-price').textContent = `₹ ${offerPrice.toFixed(2)}`;
+
+      const mrpEl = document.getElementById('pd-mrp');
+      const discountEl = document.getElementById('pd-discount');
+
+      if (actualPrice > offerPrice) {
+        mrpEl.style.display = 'inline';
+        mrpEl.textContent = `₹ ${actualPrice.toFixed(2)}`;
+        const discountPct = Math.round(((actualPrice - offerPrice) / actualPrice) * 100);
+        discountEl.style.display = 'inline-block';
+        discountEl.textContent = `${discountPct}% OFF`;
+      } else {
+        mrpEl.style.display = 'none';
+        discountEl.style.display = 'none';
+      }
+    }
+
+    function changeQuantity(delta) {
+      const input = document.getElementById('pd-qty-input');
+      let val = parseInt(input.value) || 1;
+      val += delta;
+      if (val < 1) val = 1;
+      input.value = val;
+    }
+
+    function toggleAccordion(id) {
+      const item = document.getElementById(id);
+      if (item) {
+        item.classList.toggle('active');
+      }
+    }
+
+    function triggerProductQuote() {
+      if (!currentProduct) return;
+      const qty = document.getElementById('pd-qty-input').value || '1';
+      const pkgSize = selectedPackage ? selectedPackage.size : '';
+      
+      const qtyInput = document.getElementById('modal-input-qty');
+      if (qtyInput) qtyInput.value = qty;
+
+      openInquiryModal(currentProduct.name, pkgSize);
+    }
+
+    let similarSelectedPackages = {};
+
+    function selectSimilarPackage(productId, size, price, event) {
+      if (event) event.stopPropagation();
+      const card = document.getElementById(`sim-card-${productId}`);
+      if (!card) return;
+      const priceValEl = document.getElementById(`sim-price-${productId}`);
+      if (priceValEl) priceValEl.textContent = `₹ ${price}`;
+
+      const pills = card.querySelectorAll('.pkg-pill');
+      pills.forEach(pill => {
+        if (pill.getAttribute('data-size') === size) {
+          pill.classList.add('active');
+        } else {
+          pill.classList.remove('active');
+        }
+      });
+
+      similarSelectedPackages[productId] = { size, price };
+    }
+
+    function quickAddSimilarProduct(productId, event) {
+      if (event) event.stopPropagation();
+      const product = allProds.find(p => p.id === productId);
+      if (!product) return;
+
+      const selPkg = similarSelectedPackages[productId] || (product.packages && product.packages.length > 0 ? product.packages[0] : { size: '', price: '' });
+      openInquiryModal(product.name, selPkg.size);
+    }
+
+    function navigateToProduct(prodName, event) {
+      if (event) {
+        if (event.target.closest('button') || event.target.closest('.pkg-pill')) {
+          return;
+        }
+      }
+      window.location.href = `product-detail.html?name=${encodeURIComponent(prodName)}`;
+    }
+
+    function renderSimilarProducts(allProdsList, currentProd) {
+      const section = document.getElementById('pd-similar-section') || document.querySelector('.pd-related-section');
+      const grid = document.getElementById('pd-related-grid');
+      if (!grid) return;
+
+      const currentId = currentProd ? currentProd.id : 0;
+      const currentCategory = (currentProd && currentProd.category) ? currentProd.category.trim() : '';
+
+      // 1. Strictly get products from MySQL DB matching the same category (excluding current)
+      const similar = allProdsList
+        .filter(p => p.id !== currentId && p.category && p.category.toLowerCase() === currentCategory.toLowerCase())
+        .slice(0, 5);
+
+      if (similar.length === 0) {
+        if (section) section.style.display = 'none';
+        return;
+      }
+      if (section) section.style.display = 'block';
+
+      let html = '';
+      similar.forEach(p => {
+        const pkgs = (p.packages && p.packages.length > 0) ? p.packages : [{ size: 'Standard', price: 0 }];
+        const defaultPkg = pkgs[0];
+        similarSelectedPackages[p.id] = defaultPkg;
+
+        let pillsHtml = '';
+        pkgs.forEach((pkg, idx) => {
+          const isActive = (idx === 0);
+          pillsHtml += `
+            <button type="button" 
+                    class="pkg-pill ${isActive ? 'active' : ''}" 
+                    data-size="${pkg.size}"
+                    onclick="selectSimilarPackage(${p.id}, '${pkg.size}', ${pkg.price}, event)">
+              ${pkg.size}
+            </button>
+          `;
+        });
+
+        html += `
+          <div class="pd-sim-card" id="sim-card-${p.id}" onclick="navigateToProduct('${encodeURIComponent(p.name)}', event)">
+            <div class="card-img-wrapper">
+              <img src="${p.image}" alt="${p.name}" onerror="this.src='images/logo.png'">
+            </div>
+            
+            <div class="card-details">
+              <div class="card-name-btn-row">
+                <h3 class="card-title" title="${p.name}">${p.name}</h3>
+                <button type="button" class="btn-card-add-cart" onclick="quickAddSimilarProduct(${p.id}, event)" title="Add to Cart">
+                  <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+              </div>
+
+              <div class="card-price-row">
+                From <span class="card-price-val" id="sim-price-${p.id}">₹ ${defaultPkg.price}</span>
+              </div>
+
+              <div class="card-packaging-pills" id="sim-pills-${p.id}">
+                ${pillsHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+    }
+  </script>
+</body>
+</html>

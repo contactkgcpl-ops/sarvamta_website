@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shop Now | Pure Ground Spices & Packaging Options | SARVAMTA Spices</title>
+  <meta name="description" content="Shop pure ground spices, whole spices, and Makhana with multiple packaging sizes (200g, 500g, 1kg, 5kg, 20kg). Direct factory pricing from SARVAMTA Spices.">
+  <meta name="keywords" content="Shop Spices Online, Red Chilli Powder 1kg, Turmeric Powder 500g, Bulk Spices 5kg 20kg, Ground Spices Factory Price">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://sarvamta.com/shop.html">
+  <meta name="theme-color" content="#491101">
+
+  <!-- GOOGLE FONTS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800;900&family=Montserrat:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- FONT AWESOME ICONS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- MAIN STYLESHEET -->
+  <link rel="stylesheet" href="styles.css?v=2.5">
+</head>
+<body class="light-theme shop-page" style="background-color: #ffffff !important;">
+
+  <!-- FIXED HEADER WITH TOP-LEFT LOGO & TOP MENU -->
+  <header class="light-header">
+    <div class="header-inner">
+      <!-- TOP-LEFT TRANSPARENT LOGO -->
+      <a href="index.html" class="top-left-logo-box" id="top-left-logo">
+        <img src="images/logo.png" alt="Sarvamta Spices Logo" class="header-logo-img">
+      </a>
+
+      <!-- TOP NAVIGATION MENU -->
+      <nav class="top-nav-menu" id="top-nav-menu">
+        <a href="index.html" class="nav-item">Home</a>
+        <a href="shop.html" class="nav-item active">Shop Now</a>
+        <a href="products.html" class="nav-item">Product</a>
+        <a href="private-label.html" class="nav-item">Private Label</a>
+        <a href="about.html" class="nav-item">About Us</a>
+        <a href="contact.html" class="nav-item">Contact Us</a>
+        <a href="contact.html#contact-form" class="btn-quote-nav">Quote Now</a>
+      </nav>
+
+      <!-- MOBILE MENU HAMBURGER BUTTON -->
+      <button class="mobile-menu-toggle" id="mobile-menu-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+        <span class="hamburger-bar"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- SHOP MAIN CONTAINER -->
+  <main class="shop-page-wrapper" style="padding-top: 100px; background-color: #ffffff !important;">
+    <div class="shop-container">
+      
+      <!-- TOP TOOLBAR (MATCHES SCREENSHOT) -->
+      <!-- TOP TOOLBAR WITH SEARCH TEXTBOX -->
+      <div class="shop-toolbar">
+        <div class="shop-toolbar-left">
+          <div class="shop-search-box">
+            <i class="fa-solid fa-magnifying-glass search-icon"></i>
+            <input type="text" id="shop-search-input" class="shop-search-input" placeholder="Search product by name...">
+          </div>
+          <span class="shop-product-count" id="shop-product-count">15 products</span>
+        </div>
+
+        <div class="shop-toolbar-right">
+          <!-- VIEW LAYOUT TOGGLES -->
+          <div class="shop-view-toggles">
+            <button class="btn-view-toggle active" id="btn-view-4" title="4 Columns View">
+              <i class="fa-solid fa-border-all"></i>
+            </button>
+            <button class="btn-view-toggle" id="btn-view-3" title="3 Columns View">
+              <i class="fa-solid fa-bars"></i>
+            </button>
+            <button class="btn-view-toggle" id="btn-view-list" title="List View">
+              <i class="fa-solid fa-list"></i>
+            </button>
+          </div>
+
+          <!-- SORT DROPDOWN -->
+          <div class="shop-sort-box">
+            <label for="shop-sort-select">Sort by:</label>
+            <select id="shop-sort-select" class="shop-sort-select">
+              <option value="best_selling" selected>Best selling</option>
+              <option value="price_asc">Price: Low to High</option>
+              <option value="price_desc">Price: High to Low</option>
+              <option value="name_asc">Alphabetical (A-Z)</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- PRODUCTS CARD GRID -->
+      <div id="shop-products-grid" class="shop-product-grid">
+        <!-- Products populated dynamically via JavaScript API fetch or fallback -->
+      </div>
+
+    </div>
+  </main>
+
+  <!-- QUICK VIEW PRODUCT MODAL -->
+  <div id="quickview-modal" class="shop-modal-overlay">
+    <div class="shop-modal-card">
+      <button class="shop-modal-close" id="quickview-close-btn">&times;</button>
+      <div class="modal-img-col">
+        <img id="qv-img" src="" alt="Product Detail Image">
+      </div>
+      <div class="modal-info-col">
+        <div>
+          <span class="text-gold-gradient" id="qv-category" style="font-weight:700; font-size:0.85rem; text-transform:uppercase;">Category</span>
+          <h2 class="modal-product-title" id="qv-title">Product Name</h2>
+          <p class="modal-product-desc" id="qv-desc">Product description goes here...</p>
+          <div class="filter-group-title" style="margin-top: 15px;">Select Packaging Size:</div>
+          <div class="card-packaging-pills" id="qv-pills"></div>
+        </div>
+        <div style="margin-top: 20px;">
+          <div class="modal-price-tag">Price: <span id="qv-price">₹ 0</span></div>
+          <button class="modal-btn-order" id="qv-order-btn">
+            Inquire Bulk Order <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- INQUIRY / CONTACT MODAL -->
+  <div id="inquiry-modal" class="modal-backdrop">
+    <div class="modal-card-light" style="border-radius:0px !important;">
+      <button class="modal-close" onclick="closeInquiryModal()">&times;</button>
+      <img src="images/logo.png" alt="Sarvamta Logo" class="modal-logo-img">
+      <h3>Product <span class="text-gold-gradient">Inquiry</span></h3>
+      <form action="https://formspree.io/f/mppqdlvg" method="POST">
+        <input type="text" name="name" placeholder="Your Full Name *" required class="light-input" style="border-radius:0px !important;">
+        <input type="email" name="email" placeholder="Email Address *" required class="light-input" style="border-radius:0px !important;">
+        <input type="tel" name="phone" placeholder="Mobile / WhatsApp Number *" required class="light-input" style="border-radius:0px !important;">
+        <input type="text" name="product_name" id="modal-select-product" readonly placeholder="Product Name *" required class="light-input" style="border-radius:0px !important; background:#f8fafc; color:#1e293b; font-weight:700; cursor:not-allowed;" value="General Spices Inquiry">
+        <select name="packaging_size" id="modal-select-pkg" class="light-input" style="border-radius:0px !important;" required>
+          <option value="200g">200g Pack</option>
+          <option value="500g">500g Pack</option>
+          <option value="1kg">1kg Pack</option>
+          <option value="5kg">5kg Bag</option>
+          <option value="10kg Bulk">10kg Bulk Bag</option>
+          <option value="25kg Bulk">25kg Export Bag</option>
+        </select>
+        <input type="text" name="quantity" id="modal-input-qty" value="1" placeholder="Quantity (e.g. 1 Pack / 10 Bags) *" required class="light-input" style="border-radius:0px !important;">
+        <button type="submit" class="btn-modal-submit" style="border-radius:0px !important;">Send Inquiry</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- RICH MODERN FOOTER SECTION (EXACT SAME AS HOME PAGE) -->
+  <footer class="rich-footer">
+    <div class="footer-top-wrap">
+      <div class="footer-container">
+        
+        <!-- Col 1: Brand Info -->
+        <div class="footer-col footer-col-brand">
+          <img src="images/logo.png" alt="Sarvamta Spices Logo" class="footer-brand-logo">
+          <p class="footer-brand-desc">
+            SARVAMTA Food and Spices Pvt. Ltd. is a premier spice manufacturer, exporter, and third-party white labeling specialist bringing pure natural taste & aroma to every kitchen.
+          </p>
+        </div>
+
+        <!-- Col 2: Quick Links -->
+        <div class="footer-col">
+          <h4 class="footer-title">Quick Links</h4>
+          <ul class="footer-links">
+            <li><a href="index.html"><i class="fa-solid fa-chevron-right"></i> Home</a></li>
+            <li><a href="shop.html"><i class="fa-solid fa-chevron-right"></i> Shop Now</a></li>
+            <li><a href="products.html"><i class="fa-solid fa-chevron-right"></i> Product</a></li>
+            <li><a href="private-label.html"><i class="fa-solid fa-chevron-right"></i> Private Label</a></li>
+            <li><a href="about.html"><i class="fa-solid fa-chevron-right"></i> About Us</a></li>
+            <li><a href="contact.html"><i class="fa-solid fa-chevron-right"></i> Contact Us</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 3: Spices & Services -->
+        <div class="footer-col">
+          <h4 class="footer-title">Our Services</h4>
+          <ul class="footer-links">
+            <li><a href="shop.html?category=Whole Spices"><i class="fa-solid fa-chevron-right"></i> Whole Spices</a></li>
+            <li><a href="shop.html?category=Masala Mix"><i class="fa-solid fa-chevron-right"></i> Blended Spices</a></li>
+            <li><a href="shop.html?category=Ground Spices"><i class="fa-solid fa-chevron-right"></i> Ground Spices</a></li>
+            <li><a href="private-label.html"><i class="fa-solid fa-chevron-right"></i> White Labeling</a></li>
+            <li><a href="javascript:void(0)" onclick="openInquiryModal('Global Bulk Export')"><i class="fa-solid fa-chevron-right"></i> Global Bulk Export</a></li>
+          </ul>
+        </div>
+
+        <!-- Col 4: Location & Contact -->
+        <div class="footer-col">
+          <h4 class="footer-title">Contact & Location</h4>
+          <ul class="footer-contact-list">
+            <li>
+              <i class="fa-solid fa-industry"></i>
+              <span><strong>Factory Address:</strong><br>C/42, B.N. Industrial Estate, Kathwada GIDC Road, Ahmedabad, Gujarat - 382415</span>
+            </li>
+            <li>
+              <i class="fa-solid fa-phone"></i>
+              <span><a href="tel:+919979978768">+91 99799 78768</a> / <a href="tel:+919979978767">78767</a></span>
+            </li>
+            <li>
+              <i class="fa-solid fa-envelope"></i>
+              <span><a href="mailto:sarvamtafood.spices@gmail.com">sarvamtafood.spices@gmail.com</a><br><a href="mailto:support@sarvamtafoodandspices.com">support@sarvamtafoodandspices.com</a></span>
+            </li>
+          </ul>
+          <a href="contact.html#contact-form" class="footer-btn-inquiry" style="border-radius:0px !important;">Send Inquiry <i class="fa-solid fa-paper-plane"></i></a>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Bottom Bar -->
+    <div class="footer-bottom-bar">
+      <div class="footer-bottom-container">
+        <p>© 2026 SARVAMTA Food and Spices Pvt. Ltd. All Rights Reserved. • Ahmedabad, Gujarat, India</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- SCRIPT INCLUSIONS -->
+  <script src="app.js"></script>
+  
+  <!-- SHOP INTERACTION SCRIPT -->
+  <script>
+    let allProducts = [];
+    let currentSelectedPackages = {}; // productId -> package object
+
+    document.addEventListener('DOMContentLoaded', () => {
+      initShopPage();
+    });
+
+    function initShopPage() {
+      // Toggle Filter Drawer
+      const toggleFilterBtn = document.getElementById('btn-toggle-filter');
+      const filterDrawer = document.getElementById('shop-filter-drawer');
+      if (toggleFilterBtn && filterDrawer) {
+        toggleFilterBtn.addEventListener('click', () => {
+          filterDrawer.classList.toggle('open');
+        });
+      }
+
+      // View Switchers
+      const view4Btn = document.getElementById('btn-view-4');
+      const view3Btn = document.getElementById('btn-view-3');
+      const viewListBtn = document.getElementById('btn-view-list');
+      const gridContainer = document.getElementById('shop-products-grid');
+
+      if (view4Btn && view3Btn && viewListBtn && gridContainer) {
+        view4Btn.addEventListener('click', () => {
+          gridContainer.className = 'shop-product-grid';
+          setActiveViewBtn(view4Btn);
+        });
+        view3Btn.addEventListener('click', () => {
+          gridContainer.className = 'shop-product-grid grid-3';
+          setActiveViewBtn(view3Btn);
+        });
+        viewListBtn.addEventListener('click', () => {
+          gridContainer.className = 'shop-product-grid grid-list';
+          setActiveViewBtn(viewListBtn);
+        });
+      }
+
+      function setActiveViewBtn(btn) {
+        [view4Btn, view3Btn, viewListBtn].forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+      }
+
+      // Sort & Search Event Listeners
+      const sortSelect = document.getElementById('shop-sort-select');
+      if (sortSelect) {
+        sortSelect.addEventListener('change', fetchProducts);
+      }
+
+      const searchInput = document.getElementById('shop-search-input');
+      if (searchInput) {
+        let timer;
+        searchInput.addEventListener('input', () => {
+          clearTimeout(timer);
+          timer = setTimeout(fetchProducts, 200);
+        });
+      }
+
+      // Quick View Modal Close
+      const qvCloseBtn = document.getElementById('quickview-close-btn');
+      const qvModal = document.getElementById('quickview-modal');
+      if (qvCloseBtn && qvModal) {
+        qvCloseBtn.addEventListener('click', () => qvModal.classList.remove('active'));
+        qvModal.addEventListener('click', (e) => {
+          if (e.target === qvModal) qvModal.classList.remove('active');
+        });
+      }
+
+      // Initial Products Fetch
+      fetchProducts();
+    }
+
+    async function fetchProducts() {
+      const grid = document.getElementById('shop-products-grid');
+      const countEl = document.getElementById('shop-product-count');
+      
+      if (!grid) return;
+
+      // Build parameters
+      const sort = document.getElementById('shop-sort-select')?.value || 'best_selling';
+      const search = document.getElementById('shop-search-input')?.value || '';
+
+      const apiUrl = `api/get_products.php?sort=${encodeURIComponent(sort)}&search=${encodeURIComponent(search)}`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (response.ok) {
+          const json = await response.json();
+          if (json.status === 'success' && json.data && json.data.length > 0) {
+            allProducts = json.data;
+            renderProductGrid(allProducts);
+            if (countEl) countEl.textContent = `${json.count} products`;
+            return;
+          }
+        }
+      } catch (e) {
+        // Static file or server fallback
+      }
+
+      // Fallback Data if server/PHP API not running directly
+      renderFallbackProducts(sort, search, [], '');
+    }
+
+    function renderProductGrid(products) {
+      const grid = document.getElementById('shop-products-grid');
+      const countEl = document.getElementById('shop-product-count');
+      if (!grid) return;
+
+      if (!products || products.length === 0) {
+        grid.innerHTML = `
+          <div class="shop-empty-state">
+            <i class="fa-solid fa-box-open shop-empty-icon"></i>
+            <h3 class="shop-empty-title">No matching products found</h3>
+            <p style="color:#6b7280;">Try adjusting your search terms or filter selection.</p>
+          </div>
+        `;
+        if (countEl) countEl.textContent = `0 products`;
+        return;
+      }
+
+      let html = '';
+      products.forEach(product => {
+        // Determine default package or existing selection
+        let defaultPkg = product.packages.find(p => p.is_default) || product.packages[0];
+        if (currentSelectedPackages[product.id]) {
+          defaultPkg = currentSelectedPackages[product.id];
+        } else {
+          currentSelectedPackages[product.id] = defaultPkg;
+        }
+
+        // Render Stars
+        let fullStars = Math.floor(product.rating);
+        let starsHtml = '';
+        for (let i = 0; i < 5; i++) {
+          if (i < fullStars) {
+            starsHtml += `<i class="fa-solid fa-star"></i>`;
+          } else {
+            starsHtml += `<i class="fa-regular fa-star"></i>`;
+          }
+        }
+
+        // Render Packaging Pills
+        let pillsHtml = '';
+        if (product.packages && product.packages.length > 0) {
+          product.packages.forEach(pkg => {
+            const isActive = (pkg.size === defaultPkg.size);
+            pillsHtml += `
+              <button type="button" 
+                      class="pkg-pill ${isActive ? 'active' : ''}" 
+                      style="border-radius: 0px !important;"
+                      onclick="selectCardPackage(${product.id}, '${pkg.size}', ${pkg.price}, event)">
+                ${pkg.size}
+              </button>
+            `;
+          });
+        }
+
+        html += `
+          <div class="product-card-item" id="product-card-${product.id}" style="border-radius: 0px !important; cursor: pointer;" onclick="navigateToDetail('${encodeURIComponent(product.name)}', event)">
+            <div class="card-img-wrapper" style="border-radius: 0px !important;">
+              <img src="${product.image}" alt="${product.name}" style="border-radius: 0px !important;" onerror="this.src='images/logo.png'">
+            </div>
+            
+            <div class="card-details">
+              <div class="card-name-btn-row" style="display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 4px; margin-bottom: 6px;">
+                <h3 class="card-title" style="margin: 0; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 1.02rem; font-weight: 700; color: #111827; flex: 1; line-height: 1.3;">${product.name}</h3>
+                <button type="button" class="btn-card-add-cart" style="background: linear-gradient(135deg, #d48806, #ff9800); color: #ffffff; border: none; border-radius: 0px !important; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.78rem; font-weight: 700; padding: 6px 12px; cursor: pointer; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; flex-shrink: 0; box-shadow: 0 2px 8px rgba(212, 136, 6, 0.25);" title="Add to Cart" onclick="quickAddProduct(${product.id}, event)">
+                  <i class="fa-solid fa-cart-shopping"></i> Add to Cart
+                </button>
+              </div>
+
+              <div class="card-price-row">
+                From <span class="card-price-val" id="card-price-text-${product.id}">₹ ${defaultPkg.price}</span>
+              </div>
+
+              <div class="card-packaging-pills" id="card-pills-row-${product.id}">
+                ${pillsHtml}
+              </div>
+            </div>
+          </div>
+        `;
+      });
+
+      grid.innerHTML = html;
+      if (countEl) countEl.textContent = `${products.length} products`;
+    }
+
+    function selectCardPackage(productId, size, price, event) {
+      if (event) event.stopPropagation();
+
+      // Update current selected package memory
+      const product = allProducts.find(p => p.id === productId);
+      if (product) {
+        const pkgObj = product.packages.find(p => p.size === size);
+        if (pkgObj) currentSelectedPackages[productId] = pkgObj;
+      }
+
+      // Update price text on card
+      const priceValEl = document.getElementById(`card-price-text-${productId}`);
+      if (priceValEl) {
+        priceValEl.textContent = `₹ ${price}`;
+      }
+
+      // Update pills active state
+      const pillsContainer = document.getElementById(`card-pills-row-${productId}`);
+      if (pillsContainer) {
+        const pills = pillsContainer.querySelectorAll('.pkg-pill');
+        pills.forEach(pill => {
+          if (pill.textContent.trim() === size) {
+            pill.classList.add('active');
+          } else {
+            pill.classList.remove('active');
+          }
+        });
+      }
+    }
+
+    function openQuickViewModal(productId) {
+      const product = allProducts.find(p => p.id === productId);
+      if (!product) return;
+
+      const currentPkg = currentSelectedPackages[productId] || product.packages[0];
+
+      document.getElementById('qv-img').src = product.image;
+      document.getElementById('qv-title').textContent = product.name;
+      document.getElementById('qv-category').textContent = product.category;
+      document.getElementById('qv-desc').textContent = product.description || '100% Pure SARVAMTA Spices.';
+      document.getElementById('qv-reviews').textContent = `(${product.review_count})`;
+      document.getElementById('qv-price').textContent = `₹ ${currentPkg.price}`;
+
+      // Render stars
+      let fullStars = Math.floor(product.rating);
+      let starsHtml = '';
+      for (let i = 0; i < 5; i++) {
+        starsHtml += `<i class="fa-${i < fullStars ? 'solid' : 'regular'} fa-star"></i>`;
+      }
+      document.getElementById('qv-stars').innerHTML = starsHtml;
+
+      // Render Modal Pills
+      let modalPillsHtml = '';
+      product.packages.forEach(pkg => {
+        const isActive = (pkg.size === currentPkg.size);
+        modalPillsHtml += `
+          <button type="button" class="pkg-pill ${isActive ? 'active' : ''}" 
+                  onclick="selectModalPackage(${product.id}, '${pkg.size}', ${pkg.price}, this)">
+            ${pkg.size}
+          </button>
+        `;
+      });
+      document.getElementById('qv-pills').innerHTML = modalPillsHtml;
+
+      const orderBtn = document.getElementById('qv-order-btn');
+      orderBtn.onclick = () => {
+        document.getElementById('quickview-modal').classList.remove('active');
+        quickAddProduct(productId);
+      };
+
+      document.getElementById('quickview-modal').classList.add('active');
+    }
+
+    function selectModalPackage(productId, size, price, btnEl) {
+      selectCardPackage(productId, size, price, null);
+      document.getElementById('qv-price').textContent = `₹ ${price}`;
+      const parent = btnEl.parentElement;
+      if (parent) {
+        parent.querySelectorAll('.pkg-pill').forEach(p => p.classList.remove('active'));
+        btnEl.classList.add('active');
+      }
+    }
+
+    function navigateToDetail(productName, event) {
+      if (event) {
+        if (event.target.closest('button') || event.target.closest('.pkg-pill')) {
+          return;
+        }
+      }
+      let safeParam = productName;
+      try {
+        safeParam = encodeURIComponent(decodeURIComponent(productName));
+      } catch(e) {
+        safeParam = encodeURIComponent(productName);
+      }
+      window.location.href = `product-detail.html?name=${safeParam}`;
+    }
+
+    function quickAddProduct(productId, event) {
+      if (event) {
+        event.stopPropagation();
+      }
+      const product = allProducts.find(p => p.id === productId);
+      if (!product) return;
+
+      const pkg = currentSelectedPackages[productId] || product.packages[0];
+      const pkgSize = pkg ? pkg.size : '';
+      openInquiryModal(product.name, pkgSize);
+    }
+
+    function renderFallbackProducts(sort, search, selectedCategories, selectedSize) {
+      const fallbackList = [
+        {
+          id: 1,
+          name: "Resham Patti Chilli Powder",
+          category: "Ground Spices",
+          image: "images/sarvamta_chilli_powder.jpg",
+          rating: 4.8,
+          review_count: 96,
+          description: "Vibrant red Resham Patti Chilli Powder processed under hygienic conditions.",
+          packages: [
+            { size: "200g", price: 180, is_default: true },
+            { size: "500g", price: 420, is_default: false },
+            { size: "1kg", price: 800, is_default: false },
+            { size: "5kg", price: 3800, is_default: false },
+            { size: "20kg", price: 14500, is_default: false }
+          ]
+        },
+        {
+          id: 2,
+          name: "Mix Achar Masala Powder",
+          category: "Masala Mix",
+          image: "images/sarvamta_cloves_powder.jpg",
+          rating: 4.7,
+          review_count: 93,
+          description: "Traditional Gujarati Achar Masala mix prepared with mustard seeds, fenugreek and chili.",
+          packages: [
+            { size: "500g", price: 245, is_default: true },
+            { size: "200g", price: 110, is_default: false },
+            { size: "150g", price: 85, is_default: false },
+            { size: "5kg", price: 2200, is_default: false }
+          ]
+        },
+        {
+          id: 3,
+          name: "Selam Haldi Powder",
+          category: "Ground Spices",
+          image: "images/sarvamta-turmeric_powder.jpg",
+          rating: 4.9,
+          review_count: 66,
+          description: "100% Pure Selam grade Turmeric Powder high in natural curcumin content.",
+          packages: [
+            { size: "500g", price: 270, is_default: true },
+            { size: "1kg", price: 510, is_default: false },
+            { size: "5kg", price: 2400, is_default: false },
+            { size: "20kg", price: 9200, is_default: false }
+          ]
+        },
+        {
+          id: 4,
+          name: "Red Chilli Powder (Lal Mirch) - Pure...",
+          category: "Ground Spices",
+          image: "images/your-brand-redchilli-powder.png",
+          rating: 4.8,
+          review_count: 66,
+          description: "Premium Stemless Lal Mirch Powder for deep natural red color and balanced heat.",
+          packages: [
+            { size: "1kg", price: 575, is_default: true },
+            { size: "500g", price: 300, is_default: false },
+            { size: "5kg", price: 2750, is_default: false },
+            { size: "20kg", price: 10500, is_default: false },
+            { size: "200g", price: 125, is_default: false }
+          ]
+        },
+        {
+          id: 5,
+          name: "Coriander Powder (Dhania)",
+          category: "Ground Spices",
+          image: "images/sarvamta_coriander_powder.jpg",
+          rating: 4.8,
+          review_count: 84,
+          description: "Freshly milled Coriander seeds offering rich aromatic citrusy herbal flavor.",
+          packages: [
+            { size: "200g", price: 140, is_default: true },
+            { size: "500g", price: 320, is_default: false },
+            { size: "1kg", price: 600, is_default: false },
+            { size: "5kg", price: 2800, is_default: false }
+          ]
+        },
+        {
+          id: 6,
+          name: "Cumin Powder (Jeera)",
+          category: "Ground Spices",
+          image: "images/sarvamta_cumin_powder.jpg",
+          rating: 4.7,
+          review_count: 72,
+          description: "Pure ground Jeera powder made from premium roasted cumin seeds.",
+          packages: [
+            { size: "200g", price: 210, is_default: true },
+            { size: "500g", price: 490, is_default: false },
+            { size: "1kg", price: 950, is_default: false },
+            { size: "5kg", price: 4500, is_default: false }
+          ]
+        },
+        {
+          id: 7,
+          name: "Black Pepper Powder",
+          category: "Ground Spices",
+          image: "images/sarvamta_black_papper_powder.jpg",
+          rating: 4.9,
+          review_count: 110,
+          description: "Strong Malabar Black Pepper Powder rich in piperine.",
+          packages: [
+            { size: "100g", price: 190, is_default: true },
+            { size: "250g", price: 440, is_default: false },
+            { size: "500g", price: 850, is_default: false },
+            { size: "1kg", price: 1650, is_default: false }
+          ]
+        },
+        {
+          id: 8,
+          name: "Cloves Powder (Laung)",
+          category: "Ground Spices",
+          image: "images/sarvamta_cloves_powder.jpg",
+          rating: 4.8,
+          review_count: 45,
+          description: "Freshly ground Cloves powder filled with natural clove oil.",
+          packages: [
+            { size: "100g", price: 280, is_default: true },
+            { size: "250g", price: 650, is_default: false },
+            { size: "500g", price: 1250, is_default: false }
+          ]
+        },
+        {
+          id: 9,
+          name: "Fennel Powder (Saunf)",
+          category: "Ground Spices",
+          image: "images/sarvamta_fennel_powder.jpg",
+          rating: 4.6,
+          review_count: 53,
+          description: "Sweet and soothing Saunf powder milled from selected green fennel seeds.",
+          packages: [
+            { size: "200g", price: 130, is_default: true },
+            { size: "500g", price: 290, is_default: false },
+            { size: "1kg", price: 550, is_default: false }
+          ]
+        },
+        {
+          id: 10,
+          name: "Cinnamon Powder (Dalchini)",
+          category: "Ground Spices",
+          image: "images/sarvamta_cinnamon_powder.jpg",
+          rating: 4.9,
+          review_count: 61,
+          description: "Pure Ceylon-grade Cinnamon Powder with sweet warm aroma.",
+          packages: [
+            { size: "100g", price: 220, is_default: true },
+            { size: "250g", price: 510, is_default: false },
+            { size: "500g", price: 980, is_default: false }
+          ]
+        },
+        {
+          id: 11,
+          name: "Nutmeg Powder (Jaiphal)",
+          category: "Ground Spices",
+          image: "images/sarvamta_nutmeg_powder.jpg",
+          rating: 4.8,
+          review_count: 38,
+          description: "Aromatic Jaiphal powder ideal for rich gravies and spice formulations.",
+          packages: [
+            { size: "50g", price: 250, is_default: true },
+            { size: "100g", price: 480, is_default: false },
+            { size: "250g", price: 1150, is_default: false }
+          ]
+        },
+        {
+          id: 12,
+          name: "Makhana (Fox Nuts) Premium Grade",
+          category: "Makhana",
+          image: "images/sarvamta_makhana.jpg",
+          rating: 4.9,
+          review_count: 128,
+          description: "Handpicked crispy Phool Makhana rich in protein and calcium.",
+          packages: [
+            { size: "250g", price: 380, is_default: true },
+            { size: "500g", price: 720, is_default: false },
+            { size: "1kg", price: 1390, is_default: false }
+          ]
+        },
+        {
+          id: 13,
+          name: "Whole Cumin Seeds (Jeera)",
+          category: "Whole Spices",
+          image: "images/Whole-Spices.webp",
+          rating: 4.7,
+          review_count: 89,
+          description: "Sun-dried premium whole cumin seeds.",
+          packages: [
+            { size: "250g", price: 190, is_default: true },
+            { size: "500g", price: 360, is_default: false },
+            { size: "1kg", price: 690, is_default: false }
+          ]
+        },
+        {
+          id: 14,
+          name: "Whole Green Cardamom (Elaichi)",
+          category: "Whole Spices",
+          image: "images/Whole-Spices.webp",
+          rating: 5.0,
+          review_count: 104,
+          description: "Plump 8mm bold green cardamom pods with intense aroma.",
+          packages: [
+            { size: "100g", price: 450, is_default: true },
+            { size: "250g", price: 1050, is_default: false },
+            { size: "500g", price: 2000, is_default: false }
+          ]
+        },
+        {
+          id: 15,
+          name: "Royal Garam Masala Blend",
+          category: "Masala Mix",
+          image: "images/Blended-Spices.jpeg",
+          rating: 4.8,
+          review_count: 77,
+          description: "Masterfully blended 15 whole spice mix for authentic royal aroma.",
+          packages: [
+            { size: "100g", price: 160, is_default: true },
+            { size: "200g", price: 295, is_default: false },
+            { size: "500g", price: 680, is_default: false }
+          ]
+        }
+      ];
+
+      // Filtering logic
+      let filtered = fallbackList.filter(p => {
+        if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
+        if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) return false;
+        if (selectedSize && !p.packages.some(pkg => pkg.size.toLowerCase() === selectedSize.toLowerCase())) return false;
+        return true;
+      });
+
+      // Sorting logic
+      filtered.sort((a, b) => {
+        const pA = a.packages.find(pkg => pkg.is_default)?.price || a.packages[0].price;
+        const pB = b.packages.find(pkg => pkg.is_default)?.price || b.packages[0].price;
+        if (sort === 'price_asc') return pA - pB;
+        if (sort === 'price_desc') return pB - pA;
+        if (sort === 'rating_desc') return b.rating - a.rating;
+        if (sort === 'name_asc') return a.name.localeCompare(b.name);
+        return (b.rating * b.review_count) - (a.rating * a.review_count);
+      });
+
+      allProducts = filtered;
+      renderProductGrid(filtered);
+    }
+  </script>
+</body>
+</html>

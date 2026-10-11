@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+# Sitemap Index Link
+Sitemap: https://sarvamta.com/sitemap.xml

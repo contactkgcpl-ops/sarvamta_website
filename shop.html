@@ -349,19 +349,21 @@
         const response = await fetch(apiUrl);
         if (response.ok) {
           const json = await response.json();
-          if (json.status === 'success' && json.data && json.data.length > 0) {
+          if (json.status === 'success' && Array.isArray(json.data)) {
             allProducts = json.data;
             renderProductGrid(allProducts);
-            if (countEl) countEl.textContent = `${json.count} products`;
+            if (countEl) countEl.textContent = `${allProducts.length} products`;
             return;
           }
         }
       } catch (e) {
-        // Static file or server fallback
+        console.warn('Database products could not be fetched:', e);
       }
 
-      // Fallback Data if server/PHP API not running directly
-      renderFallbackProducts(sort, search, [], '');
+      // Strictly dynamic: If DB has no products or connection fails, show empty state
+      allProducts = [];
+      renderProductGrid([]);
+      if (countEl) countEl.textContent = '0 products';
     }
 
     function renderProductGrid(products) {
@@ -556,252 +558,6 @@
       const pkg = currentSelectedPackages[productId] || product.packages[0];
       const pkgSize = pkg ? pkg.size : '';
       openInquiryModal(product.name, pkgSize);
-    }
-
-    function renderFallbackProducts(sort, search, selectedCategories, selectedSize) {
-      const fallbackList = [
-        {
-          id: 1,
-          name: "Resham Patti Chilli Powder",
-          category: "Ground Spices",
-          image: "images/sarvamta_chilli_powder.jpg",
-          rating: 4.8,
-          review_count: 96,
-          description: "Vibrant red Resham Patti Chilli Powder processed under hygienic conditions.",
-          packages: [
-            { size: "200g", price: 180, is_default: true },
-            { size: "500g", price: 420, is_default: false },
-            { size: "1kg", price: 800, is_default: false },
-            { size: "5kg", price: 3800, is_default: false },
-            { size: "20kg", price: 14500, is_default: false }
-          ]
-        },
-        {
-          id: 2,
-          name: "Mix Achar Masala Powder",
-          category: "Masala Mix",
-          image: "images/sarvamta_cloves_powder.jpg",
-          rating: 4.7,
-          review_count: 93,
-          description: "Traditional Gujarati Achar Masala mix prepared with mustard seeds, fenugreek and chili.",
-          packages: [
-            { size: "500g", price: 245, is_default: true },
-            { size: "200g", price: 110, is_default: false },
-            { size: "150g", price: 85, is_default: false },
-            { size: "5kg", price: 2200, is_default: false }
-          ]
-        },
-        {
-          id: 3,
-          name: "Selam Haldi Powder",
-          category: "Ground Spices",
-          image: "images/sarvamta-turmeric_powder.jpg",
-          rating: 4.9,
-          review_count: 66,
-          description: "100% Pure Selam grade Turmeric Powder high in natural curcumin content.",
-          packages: [
-            { size: "500g", price: 270, is_default: true },
-            { size: "1kg", price: 510, is_default: false },
-            { size: "5kg", price: 2400, is_default: false },
-            { size: "20kg", price: 9200, is_default: false }
-          ]
-        },
-        {
-          id: 4,
-          name: "Red Chilli Powder (Lal Mirch) - Pure...",
-          category: "Ground Spices",
-          image: "images/your-brand-redchilli-powder.png",
-          rating: 4.8,
-          review_count: 66,
-          description: "Premium Stemless Lal Mirch Powder for deep natural red color and balanced heat.",
-          packages: [
-            { size: "1kg", price: 575, is_default: true },
-            { size: "500g", price: 300, is_default: false },
-            { size: "5kg", price: 2750, is_default: false },
-            { size: "20kg", price: 10500, is_default: false },
-            { size: "200g", price: 125, is_default: false }
-          ]
-        },
-        {
-          id: 5,
-          name: "Coriander Powder (Dhania)",
-          category: "Ground Spices",
-          image: "images/sarvamta_coriander_powder.jpg",
-          rating: 4.8,
-          review_count: 84,
-          description: "Freshly milled Coriander seeds offering rich aromatic citrusy herbal flavor.",
-          packages: [
-            { size: "200g", price: 140, is_default: true },
-            { size: "500g", price: 320, is_default: false },
-            { size: "1kg", price: 600, is_default: false },
-            { size: "5kg", price: 2800, is_default: false }
-          ]
-        },
-        {
-          id: 6,
-          name: "Cumin Powder (Jeera)",
-          category: "Ground Spices",
-          image: "images/sarvamta_cumin_powder.jpg",
-          rating: 4.7,
-          review_count: 72,
-          description: "Pure ground Jeera powder made from premium roasted cumin seeds.",
-          packages: [
-            { size: "200g", price: 210, is_default: true },
-            { size: "500g", price: 490, is_default: false },
-            { size: "1kg", price: 950, is_default: false },
-            { size: "5kg", price: 4500, is_default: false }
-          ]
-        },
-        {
-          id: 7,
-          name: "Black Pepper Powder",
-          category: "Ground Spices",
-          image: "images/sarvamta_black_papper_powder.jpg",
-          rating: 4.9,
-          review_count: 110,
-          description: "Strong Malabar Black Pepper Powder rich in piperine.",
-          packages: [
-            { size: "100g", price: 190, is_default: true },
-            { size: "250g", price: 440, is_default: false },
-            { size: "500g", price: 850, is_default: false },
-            { size: "1kg", price: 1650, is_default: false }
-          ]
-        },
-        {
-          id: 8,
-          name: "Cloves Powder (Laung)",
-          category: "Ground Spices",
-          image: "images/sarvamta_cloves_powder.jpg",
-          rating: 4.8,
-          review_count: 45,
-          description: "Freshly ground Cloves powder filled with natural clove oil.",
-          packages: [
-            { size: "100g", price: 280, is_default: true },
-            { size: "250g", price: 650, is_default: false },
-            { size: "500g", price: 1250, is_default: false }
-          ]
-        },
-        {
-          id: 9,
-          name: "Fennel Powder (Saunf)",
-          category: "Ground Spices",
-          image: "images/sarvamta_fennel_powder.jpg",
-          rating: 4.6,
-          review_count: 53,
-          description: "Sweet and soothing Saunf powder milled from selected green fennel seeds.",
-          packages: [
-            { size: "200g", price: 130, is_default: true },
-            { size: "500g", price: 290, is_default: false },
-            { size: "1kg", price: 550, is_default: false }
-          ]
-        },
-        {
-          id: 10,
-          name: "Cinnamon Powder (Dalchini)",
-          category: "Ground Spices",
-          image: "images/sarvamta_cinnamon_powder.jpg",
-          rating: 4.9,
-          review_count: 61,
-          description: "Pure Ceylon-grade Cinnamon Powder with sweet warm aroma.",
-          packages: [
-            { size: "100g", price: 220, is_default: true },
-            { size: "250g", price: 510, is_default: false },
-            { size: "500g", price: 980, is_default: false }
-          ]
-        },
-        {
-          id: 11,
-          name: "Nutmeg Powder (Jaiphal)",
-          category: "Ground Spices",
-          image: "images/sarvamta_nutmeg_powder.jpg",
-          rating: 4.8,
-          review_count: 38,
-          description: "Aromatic Jaiphal powder ideal for rich gravies and spice formulations.",
-          packages: [
-            { size: "50g", price: 250, is_default: true },
-            { size: "100g", price: 480, is_default: false },
-            { size: "250g", price: 1150, is_default: false }
-          ]
-        },
-        {
-          id: 12,
-          name: "Makhana (Fox Nuts) Premium Grade",
-          category: "Makhana",
-          image: "images/sarvamta_makhana.jpg",
-          rating: 4.9,
-          review_count: 128,
-          description: "Handpicked crispy Phool Makhana rich in protein and calcium.",
-          packages: [
-            { size: "250g", price: 380, is_default: true },
-            { size: "500g", price: 720, is_default: false },
-            { size: "1kg", price: 1390, is_default: false }
-          ]
-        },
-        {
-          id: 13,
-          name: "Whole Cumin Seeds (Jeera)",
-          category: "Whole Spices",
-          image: "images/Whole-Spices.webp",
-          rating: 4.7,
-          review_count: 89,
-          description: "Sun-dried premium whole cumin seeds.",
-          packages: [
-            { size: "250g", price: 190, is_default: true },
-            { size: "500g", price: 360, is_default: false },
-            { size: "1kg", price: 690, is_default: false }
-          ]
-        },
-        {
-          id: 14,
-          name: "Whole Green Cardamom (Elaichi)",
-          category: "Whole Spices",
-          image: "images/Whole-Spices.webp",
-          rating: 5.0,
-          review_count: 104,
-          description: "Plump 8mm bold green cardamom pods with intense aroma.",
-          packages: [
-            { size: "100g", price: 450, is_default: true },
-            { size: "250g", price: 1050, is_default: false },
-            { size: "500g", price: 2000, is_default: false }
-          ]
-        },
-        {
-          id: 15,
-          name: "Royal Garam Masala Blend",
-          category: "Masala Mix",
-          image: "images/Blended-Spices.jpeg",
-          rating: 4.8,
-          review_count: 77,
-          description: "Masterfully blended 15 whole spice mix for authentic royal aroma.",
-          packages: [
-            { size: "100g", price: 160, is_default: true },
-            { size: "200g", price: 295, is_default: false },
-            { size: "500g", price: 680, is_default: false }
-          ]
-        }
-      ];
-
-      // Filtering logic
-      let filtered = fallbackList.filter(p => {
-        if (search && !p.name.toLowerCase().includes(search.toLowerCase())) return false;
-        if (selectedCategories.length > 0 && !selectedCategories.includes(p.category)) return false;
-        if (selectedSize && !p.packages.some(pkg => pkg.size.toLowerCase() === selectedSize.toLowerCase())) return false;
-        return true;
-      });
-
-      // Sorting logic
-      filtered.sort((a, b) => {
-        const pA = a.packages.find(pkg => pkg.is_default)?.price || a.packages[0].price;
-        const pB = b.packages.find(pkg => pkg.is_default)?.price || b.packages[0].price;
-        if (sort === 'price_asc') return pA - pB;
-        if (sort === 'price_desc') return pB - pA;
-        if (sort === 'rating_desc') return b.rating - a.rating;
-        if (sort === 'name_asc') return a.name.localeCompare(b.name);
-        return (b.rating * b.review_count) - (a.rating * a.review_count);
-      });
-
-      allProducts = filtered;
-      renderProductGrid(filtered);
     }
   </script>
 </body>

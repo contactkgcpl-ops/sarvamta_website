@@ -62,14 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       <div class="error-msg"><?php echo htmlspecialchars($error); ?></div>
     <?php endif; ?>
 
-    <form method="POST" action="login.php">
+    <form method="POST" action="login.php" autocomplete="off">
       <div class="form-group">
         <label>Username</label>
-        <input type="text" name="username" required class="form-control" placeholder="Enter username" value="sarvamta">
+        <input type="text" name="username" required class="form-control" placeholder="Enter username" autocomplete="username">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" name="password" required class="form-control" placeholder="Enter password" value="sarvamta@2026">
+        <input type="password" name="password" required class="form-control" placeholder="Enter password" autocomplete="current-password">
       </div>
       <button type="submit" class="btn-login">Sign In to Dashboard</button>
     </form>

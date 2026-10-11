@@ -953,19 +953,25 @@
           cleanSearch = cleanSearch.replace(/\+/g, ' ').trim().toLowerCase();
           currentProduct = allProds.find(p => p.name.trim().toLowerCase() === cleanSearch)
             || allProds.find(p => p.name.trim().toLowerCase().includes(cleanSearch) || cleanSearch.includes(p.name.trim().toLowerCase()))
-            || allProds.find(p => p.id === prodIdParam)
-            || allProds[0];
+            || allProds.find(p => p.id === prodIdParam);
         } else if (prodIdParam) {
-          currentProduct = allProds.find(p => p.id === prodIdParam) || allProds[0];
+          currentProduct = allProds.find(p => p.id === prodIdParam);
         } else {
           currentProduct = allProds[0];
         }
 
-        renderProductDetail(currentProduct);
-        renderSimilarProducts(allProds, currentProduct);
+        if (currentProduct) {
+          renderProductDetail(currentProduct);
+          renderSimilarProducts(allProds, currentProduct);
+        } else {
+          document.getElementById('pd-title').textContent = 'Product Not Found';
+          document.getElementById('pd-desc-text').textContent = 'The requested product is not available in the database.';
+          const relSection = document.getElementById('pd-similar-section') || document.querySelector('.pd-related-section');
+          if (relSection) relSection.style.display = 'none';
+        }
       } else {
-        document.getElementById('pd-title').textContent = 'Product Not Found';
-        document.getElementById('pd-desc-text').textContent = 'No products found in database.';
+        document.getElementById('pd-title').textContent = 'No Products Found';
+        document.getElementById('pd-desc-text').textContent = 'No products are currently available in the database.';
         const relSection = document.getElementById('pd-similar-section') || document.querySelector('.pd-related-section');
         if (relSection) relSection.style.display = 'none';
       }

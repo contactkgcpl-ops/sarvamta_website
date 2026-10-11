@@ -137,40 +137,51 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
     if (!empty($name) && !empty($category) && $db) {
         try {
             if ($pId > 0) {
-                // Update Product
-                if (!empty($uploadedPaths)) {
-                    $stmt = $db->prepare("UPDATE products SET name = :name, category = :category, image = :image, images = :images, description = :description, is_favorite = :is_fav WHERE id = :id");
-                    $stmt->execute([
-                        ':name' => $name,
-                        ':category' => $category,
-                        ':image' => $imagePath,
-                        ':images' => json_encode($uploadedPaths),
-                        ':description' => $description,
-                        ':is_fav' => $isFavorite,
-                        ':id' => $pId
-                    ]);
-
-                    // Replace product_images
-                    $stmtImgDel = $db->prepare("DELETE FROM product_images WHERE product_id = :id");
-                    $stmtImgDel->execute([':id' => $pId]);
-
-                    $stmtImg = $db->prepare("INSERT INTO product_images (product_id, image_url, sort_order, is_primary) VALUES (:pid, :url, :sort, :is_prim)");
-                    foreach ($uploadedPaths as $idx => $path) {
-                        $stmtImg->execute([
-                            ':pid' => $pId,
-                            ':url' => $path,
-                            ':sort' => $idx + 1,
-                            ':is_prim' => ($idx === 0 ? 1 : 0)
-                        ]);
+                // Update Product: Preserve old images and append newly uploaded images
+                $stmtOld = $db->prepare("SELECT image, images FROM products WHERE id = :id");
+                $stmtOld->execute([':id' => $pId]);
+                $oldRow = $stmtOld->fetch(PDO::FETCH_ASSOC);
+                $oldImages = [];
+                if ($oldRow) {
+                    if (!empty($oldRow['images'])) {
+                        $dec = json_decode($oldRow['images'], true);
+                        if (is_array($dec)) $oldImages = $dec;
                     }
+                    if (empty($oldImages) && !empty($oldRow['image'])) {
+                        $oldImages = [$oldRow['image']];
+                    }
+                }
+
+                if (!empty($uploadedPaths)) {
+                    // Combine old + new images (e.g. 1 existing + 1 new = 2 images)
+                    $allImgs = array_values(array_unique(array_merge($oldImages, $uploadedPaths)));
                 } else {
-                    $stmt = $db->prepare("UPDATE products SET name = :name, category = :category, description = :description, is_favorite = :is_fav WHERE id = :id");
-                    $stmt->execute([
-                        ':name' => $name,
-                        ':category' => $category,
-                        ':description' => $description,
-                        ':is_fav' => $isFavorite,
-                        ':id' => $pId
+                    $allImgs = !empty($oldImages) ? $oldImages : [$imagePath];
+                }
+                $primaryImg = $allImgs[0];
+
+                $stmt = $db->prepare("UPDATE products SET name = :name, category = :category, image = :image, images = :images, description = :description, is_favorite = :is_fav WHERE id = :id");
+                $stmt->execute([
+                    ':name' => $name,
+                    ':category' => $category,
+                    ':image' => $primaryImg,
+                    ':images' => json_encode($allImgs, JSON_UNESCAPED_SLASHES),
+                    ':description' => $description,
+                    ':is_fav' => $isFavorite,
+                    ':id' => $pId
+                ]);
+
+                // Update product_images table
+                $stmtImgDel = $db->prepare("DELETE FROM product_images WHERE product_id = :id");
+                $stmtImgDel->execute([':id' => $pId]);
+
+                $stmtImg = $db->prepare("INSERT INTO product_images (product_id, image_url, sort_order, is_primary) VALUES (:pid, :url, :sort, :is_prim)");
+                foreach ($allImgs as $idx => $path) {
+                    $stmtImg->execute([
+                        ':pid' => $pId,
+                        ':url' => $path,
+                        ':sort' => $idx + 1,
+                        ':is_prim' => ($idx === 0 ? 1 : 0)
                     ]);
                 }
 
@@ -1232,7 +1243,7 @@ if ($db) {
                 <th>Images</th>
                 <th>Product Name</th>
                 <th>Category</th>
-                <th style="text-align:center;"><i class="fa-solid fa-star" style="color:#d48806;"></i> Favorite</th>
+                <th style="text-align:center;">Favorite</th>
                 <th>Packaging Sizes & Prices</th>
                 <th style="text-align:center;">Actions</th>
               </tr>
@@ -1257,9 +1268,9 @@ if ($db) {
                     <td><span class="cat-badge-pill"><?php echo htmlspecialchars($p['category']); ?></span></td>
                     <td style="text-align:center;">
                       <a href="index.php?action=toggle_favorite&id=<?php echo $p['id']; ?>&fav=<?php echo (!empty($p['is_favorite']) ? 0 : 1); ?>&tab=products" 
-                         title="<?php echo (!empty($p['is_favorite']) ? 'Click to remove from favorites' : 'Click to mark as favorite for homepage'); ?>"
-                         style="font-size:1.15rem; color:<?php echo (!empty($p['is_favorite']) ? '#d97706' : '#94a3b8'); ?>; text-decoration:none; display:inline-flex; align-items:center; justify-content:center; width:34px; height:34px; border-radius:6px; background:<?php echo (!empty($p['is_favorite']) ? '#fef3c7' : '#f8fafc'); ?>; border:1px solid <?php echo (!empty($p['is_favorite']) ? '#fcd34d' : '#e2e8f0'); ?>; transition:all 0.2s ease;">
-                        <i class="<?php echo (!empty($p['is_favorite']) ? 'fa-solid fa-star' : 'fa-regular fa-star'); ?>"></i>
+                         title="<?php echo (!empty($p['is_favorite']) ? 'Click to change to No' : 'Click to change to Yes'); ?>"
+                         style="font-size:0.92rem; font-weight:700; color:<?php echo (!empty($p['is_favorite']) ? '#15803d' : '#64748b'); ?>; text-decoration:none;">
+                        <?php echo (!empty($p['is_favorite']) ? 'Yes' : 'No'); ?>
                       </a>
                     </td>
                     <td>
@@ -1376,7 +1387,7 @@ if ($db) {
       <button class="modal-close-btn" onclick="closeModal('product-modal')">&times;</button>
       <h2 id="modal-heading" style="font-size:1.25rem; font-weight:800; color:#260802; margin-bottom:20px;">Add New Product</h2>
 
-      <form method="POST" action="index.php?tab=products" enctype="multipart/form-data" id="add-product-form">
+      <form method="POST" action="index.php?tab=products" enctype="multipart/form-data" id="add-product-form" onsubmit="handleProductFormSubmit(event)">
         <input type="hidden" name="tab" id="p-form-tab" value="products">
         <input type="hidden" name="save_product" value="1">
         <input type="hidden" name="product_id" id="edit-id" value="0">
@@ -1397,18 +1408,16 @@ if ($db) {
           </select>
         </div>
 
-        <div class="form-group" style="background:#fffbeb; padding:14px 16px; border:1.5px solid #fde68a; border-radius:8px; margin-bottom:18px;">
-          <label style="display:block; font-weight:700; color:#92400e; margin-bottom:8px; font-size:0.9rem;">
-            <i class="fa-solid fa-star" style="color:#f59e0b;"></i> Mark as Customer Favorite (Show on Homepage):
-          </label>
-          <div style="display:flex; align-items:center; gap:24px;">
-            <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-weight:700; color:#1e293b; font-size:0.9rem; margin-bottom:0;">
-              <input type="radio" name="is_favorite" id="p-favorite-yes" value="1" style="width:18px; height:18px; accent-color:#d48806; cursor:pointer;">
-              <span style="color:#059669; display:inline-flex; align-items:center; gap:5px;"><i class="fa-solid fa-circle-check"></i> Yes (Favorite)</span>
+        <div class="form-group">
+          <label style="display:block; font-weight:600; color:#374151; margin-bottom:6px; font-size:0.88rem;">Mark as Favorite</label>
+          <div style="display:flex; align-items:center; gap:20px;">
+            <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-weight:600; font-size:0.9rem; color:#1e293b;">
+              <input type="radio" name="is_favorite" id="p-favorite-yes" value="1" style="cursor:pointer;">
+              Yes
             </label>
-            <label style="display:inline-flex; align-items:center; gap:8px; cursor:pointer; font-weight:700; color:#1e293b; font-size:0.9rem; margin-bottom:0;">
-              <input type="radio" name="is_favorite" id="p-favorite-no" value="0" checked style="width:18px; height:18px; accent-color:#d48806; cursor:pointer;">
-              <span style="color:#64748b; display:inline-flex; align-items:center; gap:5px;"><i class="fa-solid fa-circle-xmark"></i> No (Standard)</span>
+            <label style="display:inline-flex; align-items:center; gap:6px; cursor:pointer; font-weight:600; font-size:0.9rem; color:#1e293b;">
+              <input type="radio" name="is_favorite" id="p-favorite-no" value="0" checked style="cursor:pointer;">
+              No
             </label>
           </div>
         </div>
@@ -1505,6 +1514,7 @@ if ($db) {
   <!-- JAVASCRIPT LOGIC -->
   <script>
     let selectedImagePreviews = [];
+    let accumulatedNewFiles = [];
 
     document.addEventListener('DOMContentLoaded', () => {
       const urlParams = new URLSearchParams(window.location.search);
@@ -1915,15 +1925,85 @@ if ($db) {
       const files = Array.from(e.target.files);
       if (!files || files.length === 0) return;
 
-      selectedImagePreviews = [];
-      files.forEach((file, idx) => {
+      // Accumulate new files without overwriting previous selections
+      files.forEach((file) => {
+        accumulatedNewFiles.push(file);
         const reader = new FileReader();
         reader.onload = function(evt) {
-          selectedImagePreviews.push({ name: file.name, url: evt.target.result });
+          selectedImagePreviews.push({ 
+            name: file.name + ' [New]', 
+            url: evt.target.result, 
+            isNew: true,
+            fileObj: file
+          });
           renderSelectedImagePreviews();
         };
         reader.readAsDataURL(file);
       });
+
+      // Reset input value so subsequent uploads work seamlessly
+      e.target.value = '';
+    }
+
+    function removeSelectedImage(index) {
+      const item = selectedImagePreviews[index];
+      if (item && item.isNew && item.fileObj) {
+        accumulatedNewFiles = accumulatedNewFiles.filter(f => f !== item.fileObj);
+      }
+      selectedImagePreviews.splice(index, 1);
+      renderSelectedImagePreviews();
+    }
+
+    async function handleProductFormSubmit(e) {
+      e.preventDefault();
+      const saveBtn = document.querySelector('.btn-modal-save');
+      const origText = saveBtn ? saveBtn.innerHTML : '';
+      if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving to Database...';
+      }
+
+      const form = document.getElementById('add-product-form');
+      const formData = new FormData(form);
+
+      // Remove the raw input files to avoid duplicate/stale entries
+      formData.delete('product_images[]');
+
+      // 1. Send all retained existing images
+      selectedImagePreviews.forEach(img => {
+        if (!img.isNew) {
+          const cleanPath = (img.origPath || img.url).replace(/^\.\.\//, '');
+          formData.append('retained_images[]', cleanPath);
+        }
+      });
+
+      // 2. Send all accumulated new files (from first, second, or subsequent uploads)
+      accumulatedNewFiles.forEach(file => {
+        formData.append('product_images[]', file);
+      });
+
+      try {
+        const res = await fetch('../api/save_product.php', {
+          method: 'POST',
+          body: formData
+        });
+        const data = await res.json();
+        if (data && data.status === 'success') {
+          window.location.href = 'index.php?tab=products';
+          return;
+        } else {
+          alert('Error: ' + (data.message || 'Failed to save product'));
+        }
+      } catch (err) {
+        console.warn('API fetch error, falling back to standard submit:', err);
+        form.submit();
+        return;
+      }
+
+      if (saveBtn) {
+        saveBtn.disabled = false;
+        saveBtn.innerHTML = origText;
+      }
     }
 
     function renderSelectedImagePreviews() {
@@ -1938,6 +2018,7 @@ if ($db) {
         html += `
           <div class="img-preview-item" style="position:relative; width:80px; height:80px; border:2px solid ${idx === 0 ? '#d48806' : '#cbd5e1'}; border-radius:6px; overflow:hidden; background:#fff; padding:2px; display:inline-block; margin-right:8px; margin-top:8px;" title="${imgObj.name}">
             <img src="${imgObj.url}" alt="Selected Image ${idx+1}" style="width:100%; height:100%; object-fit:contain;">
+            <button type="button" onclick="removeSelectedImage(${idx})" title="Remove image" style="position:absolute; top:2px; right:2px; background:rgba(220,38,38,0.9); color:#fff; border:none; border-radius:50%; width:18px; height:18px; font-size:12px; line-height:18px; text-align:center; cursor:pointer;">&times;</button>
             <span style="position:absolute; bottom:0; left:0; right:0; background:${idx === 0 ? '#d48806' : 'rgba(0,0,0,0.7)'}; color:#fff; font-size:0.65rem; text-align:center; font-weight:700; line-height:1.4;">${idx === 0 ? 'Main' : '#' + (idx+1)}</span>
           </div>
         `;
@@ -1955,6 +2036,7 @@ if ($db) {
       if (document.getElementById('p-favorite-yes')) document.getElementById('p-favorite-yes').checked = false;
       if (document.getElementById('p-favorite-no')) document.getElementById('p-favorite-no').checked = true;
 
+      accumulatedNewFiles = [];
       selectedImagePreviews = [];
       renderSelectedImagePreviews();
 
@@ -2005,13 +2087,19 @@ if ($db) {
       if (document.getElementById('p-favorite-yes')) document.getElementById('p-favorite-yes').checked = isFav;
       if (document.getElementById('p-favorite-no')) document.getElementById('p-favorite-no').checked = !isFav;
 
+      accumulatedNewFiles = [];
       selectedImagePreviews = [];
       const currentImgs = (Array.isArray(p.all_images) && p.all_images.length > 0)
         ? p.all_images
         : (p.images ? (Array.isArray(p.images) ? p.images : JSON.parse(p.images || '[]')) : [p.image]);
 
       currentImgs.forEach((img, idx) => {
-        selectedImagePreviews.push({ name: `Photo #${idx+1}${idx === 0 ? ' [Main]' : ''}`, url: '../' + img });
+        selectedImagePreviews.push({ 
+          name: `Photo #${idx+1}${idx === 0 ? ' [Main]' : ''}`, 
+          origPath: img,
+          url: '../' + img,
+          isNew: false 
+        });
       });
       renderSelectedImagePreviews();
 

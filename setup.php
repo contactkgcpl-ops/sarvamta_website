@@ -31,7 +31,7 @@ if ($db) {
         $error = $e->getMessage();
     }
 } else {
-    $error = "Could not connect to database. Please check your DB credentials in .env file.";
+    $error = "Could not connect to database: " . ($database->lastError ?: "Please check your DB credentials in .env file.");
 }
 ?>
 <!DOCTYPE html>

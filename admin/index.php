@@ -302,6 +302,8 @@ if ($db) {
   <meta charset="UTF-8">
   <title>Admin Dashboard | SARVAMTA Spices</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="../images/logo.png">
   
   <!-- GOOGLE FONTS & ICONS -->
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">

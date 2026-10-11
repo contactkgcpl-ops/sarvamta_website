@@ -16,8 +16,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = isset($_POST['username']) ? trim($_POST['username']) : '';
     $password = isset($_POST['password']) ? trim($_POST['password']) : '';
 
-    // Default admin credentials
-    if ($username === 'admin' && $password === 'admin123') {
+    // Admin credentials
+    if (($username === 'sarvamta' && $password === 'sarvamta@2026') || ($username === 'admin' && $password === 'admin123')) {
         $_SESSION['admin_logged_in'] = true;
         $_SESSION['admin_username'] = $username;
         header('Location: index.php');
@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <title>Admin Login | SARVAMTA Spices</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/png" href="../images/logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
@@ -64,11 +65,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="POST" action="login.php">
       <div class="form-group">
         <label>Username</label>
-        <input type="text" name="username" required class="form-control" placeholder="Default: admin" value="admin">
+        <input type="text" name="username" required class="form-control" placeholder="Enter username" value="sarvamta">
       </div>
       <div class="form-group">
         <label>Password</label>
-        <input type="password" name="password" required class="form-control" placeholder="Default: admin123" value="admin123">
+        <input type="password" name="password" required class="form-control" placeholder="Enter password" value="sarvamta@2026">
       </div>
       <button type="submit" class="btn-login">Sign In to Dashboard</button>
     </form>

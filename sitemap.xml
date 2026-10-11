@@ -4,47 +4,67 @@
         xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
+  <!-- 1. Home Page -->
   <url>
-    <loc>https://sarvamta.com/</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.sarvamtafoodandspices.com/</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
 
   <url>
-    <loc>https://sarvamta.com/index.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>weekly</changefreq>
+    <loc>https://www.sarvamtafoodandspices.com/index.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
 
+  <!-- 2. Online Store / Shop Now -->
   <url>
-    <loc>https://sarvamta.com/about.html</loc>
-    <lastmod>2026-10-07</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.80</priority>
+    <loc>https://www.sarvamtafoodandspices.com/shop.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
 
+  <!-- 3. Product Catalog -->
   <url>
-    <loc>https://sarvamta.com/products.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <loc>https://www.sarvamtafoodandspices.com/products.html</loc>
+    <lastmod>2026-10-11</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.90</priority>
   </url>
 
+  <!-- 4. Product Detail & Quote Page -->
   <url>
-    <loc>https://sarvamta.com/private-label.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <loc>https://www.sarvamtafoodandspices.com/product-detail.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- 5. Private Label / Contract Manufacturing -->
+  <url>
+    <loc>https://www.sarvamtafoodandspices.com/private-label.html</loc>
+    <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
 
-
+  <!-- 6. About Us -->
   <url>
-    <loc>https://sarvamta.com/contact.html</loc>
-    <lastmod>2026-10-07</lastmod>
+    <loc>https://www.sarvamtafoodandspices.com/about.html</loc>
+    <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- 7. Contact Us & Inquiries -->
+  <url>
+    <loc>https://www.sarvamtafoodandspices.com/contact.html</loc>
+    <lastmod>2026-10-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
 
 </urlset>

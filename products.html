@@ -115,12 +115,108 @@
         <h2 class="main-products-heading">PURE GROUND SPICES RANGE</h2>
       </div>
 
-      <div id="products-catalog-grid" class="products-card-grid">
-        <!-- Dynamically loaded strictly from MySQL Database via api/get_products.php -->
-        <div style="grid-column: 1/-1; text-align: center; padding: 40px 0; color: #6b7280;">
-          <i class="fa-solid fa-spinner fa-spin" style="font-size: 1.5rem; color: #d48806; margin-bottom: 12px; display: block;"></i>
-          Loading products from database...
+      <div class="products-card-grid">
+        
+        <!-- Product 1: Red Chilli Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Red Chilli Powder')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_chilli_powder.jpg" alt="Pure Red Chilli Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">RED CHILLI POWDER</h3>
+          </div>
         </div>
+
+        <!-- Product 2: Turmeric Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Turmeric Powder')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta-turmeric_powder.jpg" alt="Pure Turmeric Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">TURMERIC POWDER</h3>
+          </div>
+        </div>
+
+        <!-- Product 3: Coriander Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Coriander Powder')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_coriander_powder.jpg" alt="Coriander Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">CORIANDER POWDER</h3>
+          </div>
+        </div>
+
+        <!-- Product 4: Black Pepper Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Black Pepper Powder')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_black_papper_powder.jpg" alt="Black Pepper Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">BLACK PEPPER POWDER</h3>
+          </div>
+        </div>
+
+        <!-- Product 5: Cinnamon Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Cinnamon Powder')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_cinnamon_powder.jpg" alt="Cinnamon Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">CINNAMON POWDER (DALCHINI)</h3>
+          </div>
+        </div>
+
+        <!-- Product 6: Cloves Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Cloves Powder')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_cloves_powder.jpg" alt="Cloves Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">CLOVES POWDER (LAUNG)</h3>
+          </div>
+        </div>
+
+        <!-- Product 7: Cumin Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Cumin Powder (Jeera)')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_cumin_powder.jpg" alt="Cumin Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">CUMIN POWDER (JEERA)</h3>
+          </div>
+        </div>
+
+        <!-- Product 8: Fennel Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Fennel Powder (Saunf)')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_fennel_powder.jpg" alt="Fennel Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">FENNEL POWDER (SAUNF)</h3>
+          </div>
+        </div>
+
+        <!-- Product 9: Nutmeg Powder -->
+        <div class="product-grid-card" onclick="openInquiryModal('Nutmeg Powder (Jaiphal)')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_nutmeg_powder.jpg" alt="Nutmeg Powder" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">NUTMEG POWDER (JAIPHAL)</h3>
+          </div>
+        </div>
+
+        <!-- Product 10: Makhana -->
+        <div class="product-grid-card" onclick="openInquiryModal('Makhana')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_makhana.jpg" alt="Makhana" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">MAKHANA</h3>
+          </div>
+        </div>
+
       </div>
 
     </div>
@@ -293,38 +389,6 @@
   </div>
 
   <script src="app.js"></script>
-  <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-      const grid = document.getElementById('products-catalog-grid');
-      if (!grid) return;
-      try {
-        const res = await fetch('api/get_products.php');
-        const json = await res.json();
-        if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
-          let html = '';
-          json.data.forEach(p => {
-            const img = p.image || 'images/logo.png';
-            html += `
-              <div class="product-grid-card">
-                <a href="product-detail.html?id=${p.id}" style="text-decoration:none; color:inherit; display:block;">
-                  <div class="product-card-img-box">
-                    <img src="${img}" alt="${p.name}" class="product-card-img" onerror="this.src='images/logo.png'">
-                  </div>
-                  <div class="product-card-content">
-                    <h3 class="product-card-name">${p.name.toUpperCase()}</h3>
-                  </div>
-                </a>
-              </div>
-            `;
-          });
-          grid.innerHTML = html;
-        } else {
-          grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px 0; color: #6b7280; font-size: 1rem;">No products currently available in the database.</p>';
-        }
-      } catch (err) {
-        grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; padding: 40px 0; color: #6b7280; font-size: 1rem;">No products currently available in the database.</p>';
-      }
-    });
-  </script>
+
 </body>
 </html>

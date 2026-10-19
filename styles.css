@@ -370,7 +370,8 @@ html, body {
 
 .hero-top-section {
   position: relative;
-  width: 100vw;
+  width: 100%;
+  margin-top: 89px;
   height: 800px;
   min-height: 800px;
   display: flex;
@@ -378,7 +379,7 @@ html, body {
   justify-content: center;
   text-align: center;
   overflow: hidden;
-  padding-top: 100px;
+  padding-top: 0;
 }
 
 .hero-bg-wrapper {

@@ -35,20 +35,23 @@
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    "name": "SARVAMTA Pure Ground Spices & Products",
+    "name": "SARVAMTA Pure Spices & Products",
     "url": "https://www.sarvamtafoodandspices.com/products.html",
-    "numberOfItems": 10,
+    "numberOfItems": 13,
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "Red Chilli Powder" },
       { "@type": "ListItem", "position": 2, "name": "Turmeric Powder" },
       { "@type": "ListItem", "position": 3, "name": "Coriander Powder" },
-      { "@type": "ListItem", "position": 4, "name": "Cumin Powder (Jeera)" },
-      { "@type": "ListItem", "position": 5, "name": "Black Pepper Powder" },
-      { "@type": "ListItem", "position": 6, "name": "Cloves Powder (Laung)" },
-      { "@type": "ListItem", "position": 7, "name": "Fennel Powder (Saunf)" },
-      { "@type": "ListItem", "position": 8, "name": "Cinnamon Powder (Dalchini)" },
-      { "@type": "ListItem", "position": 9, "name": "Nutmeg Powder (Jaiphal)" },
-      { "@type": "ListItem", "position": 10, "name": "Makhana (Fox Nuts)" }
+      { "@type": "ListItem", "position": 4, "name": "Whole Red Chilli" },
+      { "@type": "ListItem", "position": 5, "name": "Whole Coriander" },
+      { "@type": "ListItem", "position": 6, "name": "Whole Turmeric" },
+      { "@type": "ListItem", "position": 7, "name": "Makhana (Fox Nuts)" },
+      { "@type": "ListItem", "position": 8, "name": "Black Pepper Powder" },
+      { "@type": "ListItem", "position": 9, "name": "Cinnamon Powder (Dalchini)" },
+      { "@type": "ListItem", "position": 10, "name": "Cloves Powder (Laung)" },
+      { "@type": "ListItem", "position": 11, "name": "Cumin Powder (Jeera)" },
+      { "@type": "ListItem", "position": 12, "name": "Fennel Powder (Saunf)" },
+      { "@type": "ListItem", "position": 13, "name": "Nutmeg Powder (Jaiphal)" }
     ]
   }
   </script>
@@ -62,7 +65,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
   <!-- MAIN STYLESHEET -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=4.2">
 </head>
 <body class="light-theme">
 
@@ -112,7 +115,7 @@
     <div class="products-grid-container">
       
       <div class="products-section-title">
-        <h2 class="main-products-heading">PURE GROUND SPICES RANGE</h2>
+        <h2 class="main-products-heading">OUR PRODUCTS & SPICES RANGE</h2>
       </div>
 
       <div class="products-card-grid">
@@ -147,7 +150,47 @@
           </div>
         </div>
 
-        <!-- Product 4: Black Pepper Powder -->
+        <!-- Product 4: Whole Red Chilli -->
+        <div class="product-grid-card" onclick="openInquiryModal('Whole Red Chilli')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/whole_red_chilli.jpg" alt="Whole Red Chilli" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">WHOLE RED CHILLI</h3>
+          </div>
+        </div>
+
+        <!-- Product 5: Whole Coriander -->
+        <div class="product-grid-card" onclick="openInquiryModal('Whole Coriander')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/whole_coriender.avif" alt="Whole Coriander" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">WHOLE CORIANDER</h3>
+          </div>
+        </div>
+
+        <!-- Product 6: Whole Turmeric -->
+        <div class="product-grid-card" onclick="openInquiryModal('Whole Turmeric')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/whole_turmeric.webp" alt="Whole Turmeric" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">WHOLE TURMERIC</h3>
+          </div>
+        </div>
+
+        <!-- Product 7: Makhana -->
+        <div class="product-grid-card" onclick="openInquiryModal('Makhana')" style="cursor: pointer;">
+          <div class="product-card-img-box">
+            <img src="images/sarvamta_makhana.jpg" alt="Makhana" class="product-card-img">
+          </div>
+          <div class="product-card-content">
+            <h3 class="product-card-name">MAKHANA</h3>
+          </div>
+        </div>
+
+        <!-- Product 8: Black Pepper Powder -->
         <div class="product-grid-card" onclick="openInquiryModal('Black Pepper Powder')" style="cursor: pointer;">
           <div class="product-card-img-box">
             <img src="images/sarvamta_black_papper_powder.jpg" alt="Black Pepper Powder" class="product-card-img">
@@ -157,7 +200,7 @@
           </div>
         </div>
 
-        <!-- Product 5: Cinnamon Powder -->
+        <!-- Product 9: Cinnamon Powder -->
         <div class="product-grid-card" onclick="openInquiryModal('Cinnamon Powder')" style="cursor: pointer;">
           <div class="product-card-img-box">
             <img src="images/sarvamta_cinnamon_powder.jpg" alt="Cinnamon Powder" class="product-card-img">
@@ -167,7 +210,7 @@
           </div>
         </div>
 
-        <!-- Product 6: Cloves Powder -->
+        <!-- Product 10: Cloves Powder -->
         <div class="product-grid-card" onclick="openInquiryModal('Cloves Powder')" style="cursor: pointer;">
           <div class="product-card-img-box">
             <img src="images/sarvamta_cloves_powder.jpg" alt="Cloves Powder" class="product-card-img">
@@ -177,7 +220,7 @@
           </div>
         </div>
 
-        <!-- Product 7: Cumin Powder -->
+        <!-- Product 11: Cumin Powder -->
         <div class="product-grid-card" onclick="openInquiryModal('Cumin Powder (Jeera)')" style="cursor: pointer;">
           <div class="product-card-img-box">
             <img src="images/sarvamta_cumin_powder.jpg" alt="Cumin Powder" class="product-card-img">
@@ -187,7 +230,7 @@
           </div>
         </div>
 
-        <!-- Product 8: Fennel Powder -->
+        <!-- Product 12: Fennel Powder -->
         <div class="product-grid-card" onclick="openInquiryModal('Fennel Powder (Saunf)')" style="cursor: pointer;">
           <div class="product-card-img-box">
             <img src="images/sarvamta_fennel_powder.jpg" alt="Fennel Powder" class="product-card-img">
@@ -197,23 +240,13 @@
           </div>
         </div>
 
-        <!-- Product 9: Nutmeg Powder -->
+        <!-- Product 13: Nutmeg Powder -->
         <div class="product-grid-card" onclick="openInquiryModal('Nutmeg Powder (Jaiphal)')" style="cursor: pointer;">
           <div class="product-card-img-box">
             <img src="images/sarvamta_nutmeg_powder.jpg" alt="Nutmeg Powder" class="product-card-img">
           </div>
           <div class="product-card-content">
             <h3 class="product-card-name">NUTMEG POWDER (JAIPHAL)</h3>
-          </div>
-        </div>
-
-        <!-- Product 10: Makhana -->
-        <div class="product-grid-card" onclick="openInquiryModal('Makhana')" style="cursor: pointer;">
-          <div class="product-card-img-box">
-            <img src="images/sarvamta_makhana.jpg" alt="Makhana" class="product-card-img">
-          </div>
-          <div class="product-card-content">
-            <h3 class="product-card-name">MAKHANA</h3>
           </div>
         </div>
 

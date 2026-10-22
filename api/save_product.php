@@ -18,6 +18,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
 
 require_once __DIR__ . '/db.php';
 
+// Polyfills for PHP < 8.0 compatibility (e.g. PHP 7.x on IIS / Plesk)
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($haystack, $needle) {
+        return (string)$needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0;
+    }
+}
+if (!function_exists('str_contains')) {
+    function str_contains($haystack, $needle) {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+    }
+}
+if (!function_exists('str_ends_with')) {
+    function str_ends_with($haystack, $needle) {
+        return $needle !== '' && substr($haystack, -strlen($needle)) === (string)$needle;
+    }
+}
+
 $database = new Database();
 $db = $database->getConnection();
 
@@ -85,7 +102,7 @@ try {
         if (is_string($img)) {
             $imgClean = trim($img);
             $imgClean = preg_replace('/^\.\.\//', '', $imgClean);
-            if ($imgClean !== '' && !str_starts_with($imgClean, 'data:')) {
+            if ($imgClean !== '' && strpos($imgClean, 'data:') !== 0) {
                 $cleanedExisting[] = $imgClean;
             }
         }
@@ -227,7 +244,7 @@ try {
         'image_count' => count($combinedImages)
     ], JSON_UNESCAPED_SLASHES | JSON_PRETTY_PRINT);
 
-} catch (Exception $e) {
+} catch (Throwable $e) {
     http_response_code(500);
     echo json_encode([
         'status' => 'error',

@@ -1986,7 +1986,16 @@
           body: formData
         });
 
-        const resData = await res.json();
+        let resData = null;
+        try {
+          resData = await res.json();
+        } catch (jsonErr) {
+          const rawText = await res.text().catch(() => '');
+          console.error('Non-JSON response from server:', rawText);
+          alert('Server error (' + res.status + '): ' + (rawText.slice(0, 150) || 'Invalid server response'));
+          return;
+        }
+
         if (resData && resData.status === 'success') {
           // Success: reload products from database API
           await loadProductsData();
@@ -1994,11 +2003,11 @@
           switchTab('products');
           alert('Product saved successfully to database!');
         } else {
-          alert('Error: ' + (resData.message || 'Failed to save product'));
+          alert('Error: ' + (resData && resData.message ? resData.message : 'Failed to save product'));
         }
       } catch (err) {
         console.error('Save product API call error:', err);
-        alert('Could not call ../api/save_product.php. Please ensure MySQL server is running.');
+        alert('Network error: ' + (err.message || 'Could not connect to server'));
       } finally {
         if (saveBtn) {
           saveBtn.disabled = false;

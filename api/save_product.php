@@ -89,11 +89,11 @@ try {
     }
 
     // Also support retained_images from frontend if specified
-    if (isset($_POST['retained_images'])) {
-        $rawRetained = is_array($_POST['retained_images']) ? $_POST['retained_images'] : json_decode($_POST['retained_images'], true);
-        if (is_array($rawRetained)) {
-            $existingImages = $rawRetained;
-        }
+    if (isset($_POST['retained_images_present']) || isset($_POST['retained_images'])) {
+        $rawRetained = isset($_POST['retained_images'])
+            ? (is_array($_POST['retained_images']) ? $_POST['retained_images'] : json_decode($_POST['retained_images'], true))
+            : [];
+        $existingImages = is_array($rawRetained) ? $rawRetained : [];
     }
 
     // Clean up existing images: strip leading ../ and filter out data: URLs
@@ -109,43 +109,56 @@ try {
     }
     $existingImages = array_values(array_unique($cleanedExisting));
 
-    // 2. Process Newly Uploaded Images
+    // 2. Process Newly Uploaded Images (Supports multiple images from any input key or array)
     $newUploadedPaths = [];
     $uploadDir = __DIR__ . '/../uploads/';
     if (!file_exists($uploadDir)) {
-        mkdir($uploadDir, 0777, true);
+        @mkdir($uploadDir, 0777, true);
     }
 
-    if (isset($_FILES['product_images']) && !empty($_FILES['product_images']['name'])) {
-        $names = (array)$_FILES['product_images']['name'];
-        $tmpNames = (array)$_FILES['product_images']['tmp_name'];
-        $errors = (array)$_FILES['product_images']['error'];
-        $timestamp = time();
-
-        $slug = preg_replace('/[^a-z0-9]+/', '_', strtolower(trim($name)));
-        $slug = trim($slug, '_') ?: 'product';
-
-        for ($i = 0; $i < count($names); $i++) {
-            if (!empty($names[$i]) && $errors[$i] === UPLOAD_ERR_OK) {
-                $orig = basename($names[$i]);
-                $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION)) ?: 'jpg';
-                $cleanName = $slug . '_' . $timestamp . '_' . ($i + 1) . '.' . $ext;
-                $dest = $uploadDir . $cleanName;
-                if (move_uploaded_file($tmpNames[$i], $dest)) {
-                    $newUploadedPaths[] = 'uploads/' . $cleanName;
+    $uploadedFilesList = [];
+    foreach ($_FILES as $inputKey => $fileData) {
+        if (empty($fileData['name'])) continue;
+        if (is_array($fileData['name'])) {
+            $fileCount = count($fileData['name']);
+            for ($i = 0; $i < $fileCount; $i++) {
+                if (!empty($fileData['name'][$i]) && isset($fileData['error'][$i]) && $fileData['error'][$i] === UPLOAD_ERR_OK) {
+                    $uploadedFilesList[] = [
+                        'name' => $fileData['name'][$i],
+                        'tmp_name' => $fileData['tmp_name'][$i]
+                    ];
                 }
+            }
+        } else {
+            if (isset($fileData['error']) && $fileData['error'] === UPLOAD_ERR_OK && !empty($fileData['name'])) {
+                $uploadedFilesList[] = [
+                    'name' => $fileData['name'],
+                    'tmp_name' => $fileData['tmp_name']
+                ];
             }
         }
     }
 
-    // 3. COMBINE IMAGES: Old images + New images
-    // If a product has 1 image, and a 2nd is uploaded, BOTH are preserved (Total: 2)
-    if (!empty($newUploadedPaths)) {
-        // Merge existing and newly uploaded images (preserving both)
+    if (!empty($uploadedFilesList)) {
+        $timestamp = time();
+        $slug = preg_replace('/[^a-z0-9]+/', '_', strtolower(trim($name)));
+        $slug = trim($slug, '_') ?: 'product';
+
+        foreach ($uploadedFilesList as $uFile) {
+            $orig = basename($uFile['name']);
+            $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION)) ?: 'jpg';
+            $seq = count($newUploadedPaths) + 1;
+            $cleanName = $slug . '_' . $timestamp . '_' . $seq . '.' . $ext;
+            $dest = $uploadDir . $cleanName;
+            if (move_uploaded_file($uFile['tmp_name'], $dest)) {
+                $newUploadedPaths[] = 'uploads/' . $cleanName;
+            }
+        }
+    }
+
+    // 3. COMBINE IMAGES: Retained existing images + Newly uploaded images
+    if (!empty($newUploadedPaths) || !empty($existingImages)) {
         $combinedImages = array_values(array_unique(array_merge($existingImages, $newUploadedPaths)));
-    } else if (!empty($existingImages)) {
-        // Keep all existing images
-        $combinedImages = $existingImages;
     } else if (!empty($_POST['image'])) {
         $cleanedSingle = preg_replace('/^\.\.\//', '', trim($_POST['image']));
         $combinedImages = [$cleanedSingle];

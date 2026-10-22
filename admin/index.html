@@ -1395,7 +1395,7 @@
             <td><strong>#${p.id}</strong></td>
             <td>
               <button type="button" class="btn-view-link" onclick="openImagesModal(${p.id})">
-                <i class="fa-regular fa-image"></i> View Images
+                <i class="fa-regular fa-image"></i> View Images (${(p.images && Array.isArray(p.images)) ? p.images.length : (p.image ? 1 : 0)})
               </button>
             </td>
             <td>
@@ -1798,9 +1798,10 @@
       let html = '';
       selectedImagePreviews.forEach((imgObj, idx) => {
         html += `
-          <div class="img-preview-item" title="${imgObj.name || ('Image #' + (idx+1))}">
-            <img src="${imgObj.url}" alt="Product Image ${idx+1}">
-            <button type="button" class="img-preview-del" onclick="removeSelectedImage(${idx})" title="Remove image">&times;</button>
+          <div class="img-preview-item" style="position:relative; width:80px; height:80px; border:2px solid ${idx === 0 ? '#d48806' : '#cbd5e1'}; border-radius:6px; overflow:hidden; background:#fff; padding:2px; display:inline-block; margin-right:8px; margin-top:8px;" title="${imgObj.name || ('Image #' + (idx+1))}">
+            <img src="${imgObj.url}" alt="Product Image ${idx+1}" style="width:100%; height:100%; object-fit:contain;">
+            <button type="button" class="img-preview-del" onclick="removeSelectedImage(${idx})" title="Remove image" style="position:absolute; top:2px; right:2px; background:rgba(220,38,38,0.9); color:#fff; border:none; border-radius:50%; width:18px; height:18px; font-size:12px; line-height:18px; text-align:center; cursor:pointer;">&times;</button>
+            <span style="position:absolute; bottom:0; left:0; right:0; background:${idx === 0 ? '#d48806' : 'rgba(0,0,0,0.7)'}; color:#fff; font-size:0.65rem; text-align:center; font-weight:700; line-height:1.4;">${idx === 0 ? 'Main' : '#' + (idx+1)}</span>
           </div>
         `;
       });
@@ -1880,9 +1881,22 @@
       if (document.getElementById('p-favorite-no')) document.getElementById('p-favorite-no').checked = !isFav;
 
       accumulatedNewFiles = [];
-      const imgList = (p.images && p.images.length > 0) ? p.images : (p.image ? [p.image] : []);
+      let imgList = [];
+      if (Array.isArray(p.images) && p.images.length > 0) {
+        imgList = p.images;
+      } else if (typeof p.images === 'string' && p.images.trim()) {
+        try {
+          const parsed = JSON.parse(p.images);
+          imgList = Array.isArray(parsed) ? parsed : [p.images];
+        } catch(e) {
+          imgList = [p.images];
+        }
+      } else if (p.image) {
+        imgList = [p.image];
+      }
+
       selectedImagePreviews = imgList.map((img, idx) => ({
-        name: `Photo #${idx+1}`,
+        name: `Photo #${idx+1}${idx === 0 ? ' [Main]' : ''}`,
         origPath: img,
         url: (img.startsWith('data:') || img.startsWith('http')) ? img : '../' + img,
         isNew: false
@@ -1961,6 +1975,7 @@
       formData.append('is_favorite', isFavorite);
 
       // 1. Send all retained existing images (so existing images are preserved)
+      formData.append('retained_images_present', '1');
       selectedImagePreviews.forEach(img => {
         if (!img.isNew) {
           const cleanPath = (img.origPath || img.url).replace(/^\.\.\//, '');

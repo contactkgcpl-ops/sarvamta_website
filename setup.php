@@ -27,7 +27,7 @@ if ($db) {
         }
 
         $isSuccess = true;
-    } catch (Exception $e) {
+    } catch (Throwable $e) {
         $error = $e->getMessage();
     }
 } else {

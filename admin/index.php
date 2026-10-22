@@ -13,6 +13,23 @@ if (!isset($_SESSION['admin_logged_in']) || $_SESSION['admin_logged_in'] !== tru
 }
 
 require_once __DIR__ . '/../api/db.php';
+
+// Polyfills for PHP < 8.0 compatibility
+if (!function_exists('str_starts_with')) {
+    function str_starts_with($haystack, $needle) {
+        return (string)$needle !== '' && strncmp($haystack, $needle, strlen($needle)) === 0;
+    }
+}
+if (!function_exists('str_contains')) {
+    function str_contains($haystack, $needle) {
+        return $needle !== '' && mb_strpos($haystack, $needle) !== false;
+    }
+}
+if (!function_exists('str_ends_with')) {
+    function str_ends_with($haystack, $needle) {
+        return $needle !== '' && substr($haystack, -strlen($needle)) === (string)$needle;
+    }
+}
 $database = new Database();
 $db = $database->getConnection();
 
@@ -92,33 +109,49 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
         $productSlug = 'product';
     }
 
-    // Multi-File Upload Handler with timestamp (Supports 1 to 5+ images per product)
+    // Multi-File Upload Handler with timestamp (Supports multiple images from any input key or array)
     $uploadedPaths = [];
     $uploadFileDir = __DIR__ . '/../uploads/';
     if (!file_exists($uploadFileDir)) {
-        mkdir($uploadFileDir, 0777, true);
+        @mkdir($uploadFileDir, 0777, true);
     }
 
-    if (isset($_FILES['product_images']) && !empty($_FILES['product_images']['name'][0])) {
-        $fileCount = count($_FILES['product_images']['name']);
+    $uploadedFilesList = [];
+    foreach ($_FILES as $inputKey => $fileData) {
+        if (empty($fileData['name'])) continue;
+        if (is_array($fileData['name'])) {
+            $fileCount = count($fileData['name']);
+            for ($i = 0; $i < $fileCount; $i++) {
+                if (!empty($fileData['name'][$i]) && isset($fileData['error'][$i]) && $fileData['error'][$i] === UPLOAD_ERR_OK) {
+                    $uploadedFilesList[] = [
+                        'name' => $fileData['name'][$i],
+                        'tmp_name' => $fileData['tmp_name'][$i]
+                    ];
+                }
+            }
+        } else {
+            if (isset($fileData['error']) && $fileData['error'] === UPLOAD_ERR_OK && !empty($fileData['name'])) {
+                $uploadedFilesList[] = [
+                    'name' => $fileData['name'],
+                    'tmp_name' => $fileData['tmp_name']
+                ];
+            }
+        }
+    }
+
+    if (!empty($uploadedFilesList)) {
         $timestamp = time();
-        for ($i = 0; $i < $fileCount; $i++) {
-            if ($_FILES['product_images']['error'][$i] === UPLOAD_ERR_OK) {
-                $fileTmpPath = $_FILES['product_images']['tmp_name'][$i];
-                $origName = basename($_FILES['product_images']['name'][$i]);
-                $ext = strtolower(pathinfo($origName, PATHINFO_EXTENSION));
-                if (empty($ext)) {
-                    $ext = 'jpg';
-                }
+        $slug = preg_replace('/[^a-z0-9]+/', '_', strtolower(trim($name)));
+        $slug = trim($slug, '_') ?: 'product';
 
-                // Custom filename format: product_name_timestamp_1.jpg, product_name_timestamp_2.jpg
-                $seq = $i + 1;
-                $cleanName = $productSlug . '_' . $timestamp . '_' . $seq . '.' . $ext;
-                $dest_path = $uploadFileDir . $cleanName;
-
-                if (move_uploaded_file($fileTmpPath, $dest_path)) {
-                    $uploadedPaths[] = 'uploads/' . $cleanName;
-                }
+        foreach ($uploadedFilesList as $uFile) {
+            $orig = basename($uFile['name']);
+            $ext = strtolower(pathinfo($orig, PATHINFO_EXTENSION)) ?: 'jpg';
+            $seq = count($uploadedPaths) + 1;
+            $cleanName = $slug . '_' . $timestamp . '_' . $seq . '.' . $ext;
+            $dest_path = $uploadFileDir . $cleanName;
+            if (move_uploaded_file($uFile['tmp_name'], $dest_path)) {
+                $uploadedPaths[] = 'uploads/' . $cleanName;
             }
         }
     }
@@ -137,26 +170,45 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_product'])) {
     if (!empty($name) && !empty($category) && $db) {
         try {
             if ($pId > 0) {
-                // Update Product: Preserve old images and append newly uploaded images
-                $stmtOld = $db->prepare("SELECT image, images FROM products WHERE id = :id");
-                $stmtOld->execute([':id' => $pId]);
-                $oldRow = $stmtOld->fetch(PDO::FETCH_ASSOC);
+                // Update Product: Preserve retained images and append newly uploaded images
                 $oldImages = [];
-                if ($oldRow) {
-                    if (!empty($oldRow['images'])) {
-                        $dec = json_decode($oldRow['images'], true);
-                        if (is_array($dec)) $oldImages = $dec;
-                    }
-                    if (empty($oldImages) && !empty($oldRow['image'])) {
-                        $oldImages = [$oldRow['image']];
+                if (isset($_POST['retained_images_present']) || isset($_POST['retained_images'])) {
+                    $rawRetained = isset($_POST['retained_images'])
+                        ? (is_array($_POST['retained_images']) ? $_POST['retained_images'] : json_decode($_POST['retained_images'], true))
+                        : [];
+                    $oldImages = is_array($rawRetained) ? $rawRetained : [];
+                } else {
+                    $stmtOld = $db->prepare("SELECT image, images FROM products WHERE id = :id");
+                    $stmtOld->execute([':id' => $pId]);
+                    $oldRow = $stmtOld->fetch(PDO::FETCH_ASSOC);
+                    if ($oldRow) {
+                        if (!empty($oldRow['images'])) {
+                            $dec = json_decode($oldRow['images'], true);
+                            if (is_array($dec)) $oldImages = $dec;
+                        }
+                        if (empty($oldImages) && !empty($oldRow['image'])) {
+                            $oldImages = [$oldRow['image']];
+                        }
                     }
                 }
 
-                if (!empty($uploadedPaths)) {
-                    // Combine old + new images (e.g. 1 existing + 1 new = 2 images)
+                // Clean old images
+                $cleanedOld = [];
+                foreach ($oldImages as $img) {
+                    if (is_string($img)) {
+                        $imgClean = trim($img);
+                        $imgClean = preg_replace('/^\.\.\//', '', $imgClean);
+                        if ($imgClean !== '' && strpos($imgClean, 'data:') !== 0) {
+                            $cleanedOld[] = $imgClean;
+                        }
+                    }
+                }
+                $oldImages = array_values(array_unique($cleanedOld));
+
+                if (!empty($uploadedPaths) || !empty($oldImages)) {
                     $allImgs = array_values(array_unique(array_merge($oldImages, $uploadedPaths)));
                 } else {
-                    $allImgs = !empty($oldImages) ? $oldImages : [$imagePath];
+                    $allImgs = [$imagePath];
                 }
                 $primaryImg = $allImgs[0];
 
@@ -1970,6 +2022,7 @@ if ($db) {
       formData.delete('product_images[]');
 
       // 1. Send all retained existing images
+      formData.append('retained_images_present', '1');
       selectedImagePreviews.forEach(img => {
         if (!img.isNew) {
           const cleanPath = (img.origPath || img.url).replace(/^\.\.\//, '');

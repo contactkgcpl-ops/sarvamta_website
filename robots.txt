@@ -1,5 +1,5 @@
 # Robots.txt for SARVAMTA Food and Spices Pvt. Ltd.
-# Website: https://www.sarvamtafoodandspices.com
+# Website: https://sarvamtafoodandspice.com
 
 User-agent: *
 Allow: /
@@ -10,4 +10,4 @@ Disallow: /api/
 Disallow: /db/
 
 # XML Sitemap Location
-Sitemap: https://www.sarvamtafoodandspices.com/sitemap.xml
+Sitemap: https://sarvamtafoodandspice.com/sitemap.xml

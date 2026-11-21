@@ -451,7 +451,7 @@ function navigateToDetail(productName, event) {
   } catch(e) {
     safeParam = encodeURIComponent(productName);
   }
-  window.location.href = `product-detail.html?name=${safeParam}`;
+  window.location.href = `product-detail?name=${safeParam}`;
 }
 
 document.addEventListener('DOMContentLoaded', () => {

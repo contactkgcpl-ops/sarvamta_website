@@ -346,26 +346,54 @@
 
       // Build parameters
       const sort = document.getElementById('shop-sort-select')?.value || 'best_selling';
-      const search = document.getElementById('shop-search-input')?.value || '';
+      const search = (document.getElementById('shop-search-input')?.value || '').trim().toLowerCase();
 
       const apiUrl = `api/get_products.php?sort=${encodeURIComponent(sort)}&search=${encodeURIComponent(search)}`;
 
       try {
         const response = await fetch(apiUrl);
         if (response.ok) {
-          const json = await response.json();
-          if (json.status === 'success' && Array.isArray(json.data)) {
-            allProducts = json.data;
-            renderProductGrid(allProducts);
-            if (countEl) countEl.textContent = `${allProducts.length} products`;
-            return;
+          const text = await response.text();
+          if (text.trim().startsWith('{')) {
+            const json = JSON.parse(text);
+            if (json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+              allProducts = json.data;
+              renderProductGrid(allProducts);
+              if (countEl) countEl.textContent = `${allProducts.length} products`;
+              return;
+            }
           }
         }
       } catch (e) {
-        console.warn('Database products could not be fetched:', e);
+        console.warn('API fetch warning:', e);
       }
 
-      // Strictly dynamic: If DB has no products or connection fails, show empty state
+      // Automatic fallback to data/products.json
+      try {
+        const fbRes = await fetch('data/products.json');
+        if (fbRes.ok) {
+          const json = await fbRes.json();
+          let list = json.data || [];
+          if (search) {
+            list = list.filter(p => p.name.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search)));
+          }
+          if (sort === 'price_asc') {
+            list.sort((a,b) => (a.packages?.[0]?.price || 0) - (b.packages?.[0]?.price || 0));
+          } else if (sort === 'price_desc') {
+            list.sort((a,b) => (b.packages?.[0]?.price || 0) - (a.packages?.[0]?.price || 0));
+          } else if (sort === 'name_asc') {
+            list.sort((a,b) => a.name.localeCompare(b.name));
+          }
+          allProducts = list;
+          renderProductGrid(allProducts);
+          if (countEl) countEl.textContent = `${allProducts.length} products`;
+          return;
+        }
+      } catch (err) {
+        console.warn('Fallback error:', err);
+      }
+
+      // If no products found
       allProducts = [];
       renderProductGrid([]);
       if (countEl) countEl.textContent = '0 products';

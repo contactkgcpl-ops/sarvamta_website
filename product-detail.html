@@ -935,12 +935,31 @@
       let allProds = [];
       try {
         const res = await fetch('api/get_products.php');
-        const json = await res.json();
-        if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
-          allProds = json.data;
+        if (res.ok) {
+          const text = await res.text();
+          if (text.trim().startsWith('{')) {
+            const json = JSON.parse(text);
+            if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+              allProds = json.data;
+            }
+          }
         }
       } catch(e) {
-        console.error('Failed to load products from DB:', e);
+        console.warn('API fetch warning:', e);
+      }
+
+      if (allProds.length === 0) {
+        try {
+          const fbRes = await fetch('data/products.json');
+          if (fbRes.ok) {
+            const json = await fbRes.json();
+            if (json && Array.isArray(json.data)) {
+              allProds = json.data;
+            }
+          }
+        } catch(err) {
+          console.warn('Product detail fallback error:', err);
+        }
       }
 
       // Products are loaded strictly from MySQL Database via api/get_products.php

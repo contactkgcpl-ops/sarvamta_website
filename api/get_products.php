@@ -124,6 +124,37 @@ if ($db !== null) {
     }
 }
 
+// Fallback to static data/products.json if DB connection unavailable or empty
+if (empty($products)) {
+    $fallbackFile = __DIR__ . '/../data/products.json';
+    if (file_exists($fallbackFile)) {
+        $staticData = json_decode(file_get_contents($fallbackFile), true);
+        if (!empty($staticData['data'])) {
+            $products = $staticData['data'];
+
+            if (!empty($category) && strtolower($category) !== 'all') {
+                $products = array_values(array_filter($products, function($p) use ($category) {
+                    return strcasecmp($p['category'], $category) === 0;
+                }));
+            }
+
+            if (!empty($search)) {
+                $products = array_values(array_filter($products, function($p) use ($search) {
+                    return stripos($p['name'], $search) !== false || (isset($p['description']) && stripos($p['description'], $search) !== false);
+                }));
+            }
+
+            $favorite = isset($_GET['favorite']) ? trim($_GET['favorite']) : '';
+            if ($favorite !== '') {
+                $favInt = (int)$favorite;
+                $products = array_values(array_filter($products, function($p) use ($favInt) {
+                    return (int)$p['is_favorite'] === $favInt;
+                }));
+            }
+        }
+    }
+}
+
 // Sorting logic
 usort($products, function($a, $b) use ($sort) {
     // Helper to get default price

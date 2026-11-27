@@ -332,8 +332,35 @@ async function initHomeFavorites() {
 
   try {
     const res = await fetch('api/get_products.php?favorite=1');
-    const json = await res.json();
-    const prods = (json.status === 'success' && Array.isArray(json.data)) ? json.data : [];
+    if (res.ok) {
+      const text = await res.text();
+      if (text.trim().startsWith('{')) {
+        const json = JSON.parse(text);
+        if (json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
+          homeFavProducts = json.data;
+        }
+      }
+    }
+  } catch (e) {
+    console.warn('Home favorite API warning:', e);
+  }
+
+  // Fallback to data/products.json if API didn't return data
+  if (homeFavProducts.length === 0) {
+    try {
+      const fbRes = await fetch('data/products.json');
+      if (fbRes.ok) {
+        const json = await fbRes.json();
+        if (json && Array.isArray(json.data)) {
+          homeFavProducts = json.data.filter(p => p.is_favorite === 1);
+        }
+      }
+    } catch (err) {
+      console.warn('Home favorites fallback error:', err);
+    }
+  }
+
+  const prods = homeFavProducts;
 
     // IF NO PRODUCTS ARE MARKED AS FAVORITE, DO NOT SHOW THIS SECTION AT ALL
     if (prods.length === 0) {

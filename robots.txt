@@ -4,10 +4,5 @@
 User-agent: *
 Allow: /
 
-# Disallow private admin dashboard, databases, and backend API endpoints
-Disallow: /admin/
-Disallow: /api/
-Disallow: /db/
-
 # XML Sitemap Location
 Sitemap: https://sarvamtafoodandspice.com/sitemap.xml

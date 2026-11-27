@@ -941,26 +941,9 @@
             allProds = json.data;
           }
         }
-      } catch(e) {}
-
-      if (allProds.length === 0) {
-        try {
-          const res = await fetch('api/get_products.php');
-          if (res.ok) {
-            const text = await res.text();
-            if (text.trim().startsWith('{')) {
-              const json = JSON.parse(text);
-              if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
-                allProds = json.data;
-              }
-            }
-          }
-        } catch(err) {
-          console.warn('API fetch warning:', err);
-        }
+      } catch(e) {
+        console.warn('Products fetch error:', e);
       }
-
-      // Products are loaded strictly from MySQL Database via api/get_products.php
 
       if (allProds.length > 0) {
         if (prodNameParam) {

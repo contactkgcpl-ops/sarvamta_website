@@ -348,40 +348,28 @@
       const sort = document.getElementById('shop-sort-select')?.value || 'best_selling';
       const search = (document.getElementById('shop-search-input')?.value || '').trim().toLowerCase();
 
-      const apiUrl = `api/get_products.php?sort=${encodeURIComponent(sort)}&search=${encodeURIComponent(search)}`;
-
-      // Fetch products (direct from data/products.json or api fallback)
+      // Fetch products direct from data/products.json
       try {
-        let json = null;
-        try {
-          const fbRes = await fetch('data/products.json');
-          if (fbRes.ok) json = await fbRes.json();
-        } catch (e) {}
-
-        if (!json || !json.data) {
-          const response = await fetch(apiUrl);
-          if (response.ok) {
-            const text = await response.text();
-            if (text.trim().startsWith('{')) json = JSON.parse(text);
+        const response = await fetch('data/products.json');
+        if (response.ok) {
+          const json = await response.json();
+          if (json && Array.isArray(json.data) && json.data.length > 0) {
+            let list = [...json.data];
+            if (search) {
+              list = list.filter(p => p.name.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search)));
+            }
+            if (sort === 'price_asc') {
+              list.sort((a,b) => (a.packages?.[0]?.price || 0) - (b.packages?.[0]?.price || 0));
+            } else if (sort === 'price_desc') {
+              list.sort((a,b) => (b.packages?.[0]?.price || 0) - (a.packages?.[0]?.price || 0));
+            } else if (sort === 'name_asc') {
+              list.sort((a,b) => a.name.localeCompare(b.name));
+            }
+            allProducts = list;
+            renderProductGrid(allProducts);
+            if (countEl) countEl.textContent = `${allProducts.length} products`;
+            return;
           }
-        }
-
-        if (json && json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
-          let list = json.data;
-          if (search) {
-            list = list.filter(p => p.name.toLowerCase().includes(search) || (p.description && p.description.toLowerCase().includes(search)));
-          }
-          if (sort === 'price_asc') {
-            list.sort((a,b) => (a.packages?.[0]?.price || 0) - (b.packages?.[0]?.price || 0));
-          } else if (sort === 'price_desc') {
-            list.sort((a,b) => (b.packages?.[0]?.price || 0) - (a.packages?.[0]?.price || 0));
-          } else if (sort === 'name_asc') {
-            list.sort((a,b) => a.name.localeCompare(b.name));
-          }
-          allProducts = list;
-          renderProductGrid(allProducts);
-          if (countEl) countEl.textContent = `${allProducts.length} products`;
-          return;
         }
       } catch (err) {
         console.warn('Products fetch error:', err);

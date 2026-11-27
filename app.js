@@ -266,15 +266,7 @@ function initFormSubmissions() {
         closeInquiryModal();
       }
 
-      // 1. Save to MySQL Backend API
-      try {
-        await fetch('api/save_inquiry.php', {
-          method: 'POST',
-          body: formData
-        });
-      } catch (err) {}
-
-      // 2. Save to LocalStorage Backup
+      // 1. Save to LocalStorage Backup
       try {
         const localInquiries = JSON.parse(localStorage.getItem('sarvamta_inquiries') || '[]');
         const newEntry = {
@@ -292,7 +284,7 @@ function initFormSubmissions() {
         localStorage.setItem('sarvamta_inquiries', JSON.stringify(localInquiries));
       } catch (err) {}
 
-      // 3. Submit to Formspree
+      // 2. Submit to Formspree
       try {
         await fetch(form.action, {
           method: 'POST',
@@ -320,7 +312,7 @@ function initFormSubmissions() {
 }
 
 /* ==========================================================================
-   HOMEPAGE FAVORITE PRODUCTS (DYNAMIC FETCH FROM MYSQL DB)
+   HOMEPAGE FAVORITE PRODUCTS (STATIC JSON)
    ========================================================================== */
 let homeFavProducts = [];
 let homeFavSelectedPackages = {};
@@ -331,33 +323,15 @@ async function initHomeFavorites() {
   if (!section || !grid) return;
 
   try {
-    const res = await fetch('api/get_products.php?favorite=1');
+    const res = await fetch('data/products.json');
     if (res.ok) {
-      const text = await res.text();
-      if (text.trim().startsWith('{')) {
-        const json = JSON.parse(text);
-        if (json.status === 'success' && Array.isArray(json.data) && json.data.length > 0) {
-          homeFavProducts = json.data;
-        }
+      const json = await res.json();
+      if (json && Array.isArray(json.data)) {
+        homeFavProducts = json.data.filter(p => p.is_favorite === 1);
       }
     }
-  } catch (e) {
-    console.warn('Home favorite API warning:', e);
-  }
-
-  // Fallback to data/products.json if API didn't return data
-  if (homeFavProducts.length === 0) {
-    try {
-      const fbRes = await fetch('data/products.json');
-      if (fbRes.ok) {
-        const json = await fbRes.json();
-        if (json && Array.isArray(json.data)) {
-          homeFavProducts = json.data.filter(p => p.is_favorite === 1);
-        }
-      }
-    } catch (err) {
-      console.warn('Home favorites fallback error:', err);
-    }
+  } catch (err) {
+    console.warn('Home favorites fetch error:', err);
   }
 
   const prods = homeFavProducts;

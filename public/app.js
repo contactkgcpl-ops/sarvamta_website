@@ -393,9 +393,6 @@ async function initHomeFavorites() {
     });
 
     grid.innerHTML = html;
-  } catch (err) {
-    if (section) section.style.display = 'none';
-  }
 }
 
 function selectHomeFavPackage(productId, size, price, event) {

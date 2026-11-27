@@ -1,0 +1,10 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "sarvamta-website",
+  "compatibility_date": "2024-11-01",
+  "assets": {
+    "directory": ".",
+    "html_handling": "drop-trailing-slash",
+    "not_found_handling": "single-page-application"
+  }
+}

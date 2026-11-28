@@ -180,6 +180,18 @@ function initHeroVideoSlider() {
   let timer = null;
   const slideDuration = 6000;
 
+  function loadSlideVideo(slide) {
+    if (!slide) return;
+    const video = slide.querySelector('video');
+    if (!video) return;
+    const source = video.querySelector('source[data-src]');
+    if (source) {
+      source.src = source.getAttribute('data-src');
+      source.removeAttribute('data-src');
+      video.load();
+    }
+  }
+
   function showSlide(index) {
     if (index < 0) index = slides.length - 1;
     if (index >= slides.length) index = 0;
@@ -187,6 +199,7 @@ function initHeroVideoSlider() {
     slides.forEach((slide, i) => {
       if (i === index) {
         slide.classList.add('active');
+        loadSlideVideo(slide);
         const video = slide.querySelector('video');
         if (video) {
           video.currentTime = 0;
@@ -206,6 +219,12 @@ function initHeroVideoSlider() {
     });
 
     currentIndex = index;
+
+    // Smart background preload: preload the next slide's video 2.5s before transition
+    const nextIndex = (index + 1) % slides.length;
+    setTimeout(() => {
+      loadSlideVideo(slides[nextIndex]);
+    }, 2500);
   }
 
   function startAutoPlay() {
@@ -218,6 +237,11 @@ function initHeroVideoSlider() {
   function stopAutoPlay() {
     if (timer) clearInterval(timer);
   }
+
+  // Preload second video 2 seconds after page load
+  setTimeout(() => {
+    if (slides[1]) loadSlideVideo(slides[1]);
+  }, 2000);
 
   if (prevBtn) {
     prevBtn.addEventListener('click', () => {

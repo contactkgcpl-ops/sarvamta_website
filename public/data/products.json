@@ -6,9 +6,9 @@
       "id": 1,
       "name": "Red Chilli Powder",
       "category": "Ground Spices",
-      "image": "uploads/red_chilli_powder_1792641617_1.png",
+      "image": "uploads/red_chilli_powder_1792641617_1.webp",
       "images": [
-        "uploads/red_chilli_powder_1792641617_1.png"
+        "uploads/red_chilli_powder_1792641617_1.webp"
       ],
       "is_favorite": 1,
       "rating": 4.8,
@@ -49,9 +49,9 @@
       "id": 2,
       "name": "Turmeric Powder",
       "category": "Ground Spices",
-      "image": "uploads/turmeric_powder_1792401580_1.png",
+      "image": "uploads/turmeric_powder_1792401580_1.webp",
       "images": [
-        "uploads/turmeric_powder_1792401580_1.png"
+        "uploads/turmeric_powder_1792401580_1.webp"
       ],
       "is_favorite": 1,
       "rating": 4.9,
@@ -92,9 +92,9 @@
       "id": 3,
       "name": "Coriander Powder",
       "category": "Ground Spices",
-      "image": "uploads/coriander_powder_1792401640_1.png",
+      "image": "uploads/coriander_powder_1792401640_1.webp",
       "images": [
-        "uploads/coriander_powder_1792401640_1.png"
+        "uploads/coriander_powder_1792401640_1.webp"
       ],
       "is_favorite": 1,
       "rating": 4.7,
@@ -135,9 +135,9 @@
       "id": 4,
       "name": "Kumathi Kashmiri Chilli Powder",
       "category": "Ground Spices",
-      "image": "uploads/kumathi_kashmiri_chilli_powder_1793858271_1.png",
+      "image": "uploads/kumathi_kashmiri_chilli_powder_1793858271_1.webp",
       "images": [
-        "uploads/kumathi_kashmiri_chilli_powder_1793858271_1.png"
+        "uploads/kumathi_kashmiri_chilli_powder_1793858271_1.webp"
       ],
       "is_favorite": 1,
       "rating": 4.9,

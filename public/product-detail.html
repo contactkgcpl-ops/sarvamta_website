@@ -744,7 +744,7 @@
           <!-- LEFT COLUMN: MAIN IMAGE & THUMBNAIL SLIDER STRIP -->
           <div class="pd-gallery-card">
             <div class="pd-main-img-box">
-              <img id="pd-main-img" src="images/logo.png" alt="Product Image" onerror="this.src='images/logo.png'">
+              <img loading="lazy" decoding="async" id="pd-main-img" src="images/logo.png" alt="Product Image" onerror="this.src='images/logo.png'">
             </div>
 
             <!-- THUMBNAIL SLIDER STRIP -->
@@ -834,7 +834,7 @@
         
         <!-- Col 1: Brand Info -->
         <div class="footer-col footer-col-brand">
-          <img src="images/logo.png" alt="Sarvamta Spices Logo" class="footer-brand-logo">
+          <img loading="lazy" decoding="async" src="images/logo.png" alt="Sarvamta Spices Logo" class="footer-brand-logo">
           <p class="footer-brand-desc">
             SARVAMTA Food and Spices Pvt. Ltd. is a premier spice manufacturer, exporter, and third-party white labeling specialist bringing pure natural taste & aroma to every kitchen.
           </p>
@@ -900,7 +900,7 @@
   <div id="inquiry-modal" class="modal-backdrop">
     <div class="modal-card-light" style="border-radius:0px !important;">
       <button class="modal-close" onclick="closeInquiryModal()">&times;</button>
-      <img src="images/logo.png" alt="Sarvamta Logo" class="modal-logo-img">
+      <img loading="lazy" decoding="async" src="images/logo.png" alt="Sarvamta Logo" class="modal-logo-img">
       <h3>Product <span class="text-gold-gradient">Inquiry</span></h3>
       <form action="https://formspree.io/f/mppqdlvg" method="POST">
         <input type="text" name="name" placeholder="Your Full Name *" required class="light-input" style="border-radius:0px !important;">
@@ -1026,7 +1026,7 @@
         galleryImages.forEach((img, idx) => {
           thumbsHtml += `
             <div class="pd-thumb-item ${idx === 0 ? 'active' : ''}" onclick="switchMainImage(this, '${img}')">
-              <img src="${img}" alt="${p.name} image ${idx+1}" onerror="this.src='images/logo.png'">
+              <img loading="lazy" decoding="async" src="${img}" alt="${p.name} image ${idx+1}" onerror="this.src='images/logo.png'">
             </div>
           `;
         });
@@ -1199,7 +1199,7 @@
         html += `
           <div class="pd-sim-card" id="sim-card-${p.id}" onclick="navigateToProduct('${encodeURIComponent(p.name)}', event)">
             <div class="card-img-wrapper">
-              <img src="${p.image}" alt="${p.name}" onerror="this.src='images/logo.png'">
+              <img loading="lazy" decoding="async" src="${p.image}" alt="${p.name}" onerror="this.src='images/logo.png'">
             </div>
             
             <div class="card-details">
